@@ -1,0 +1,76 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home">Inicio</a>
+      <a mat-list-item routerLink="/teleconsult">Teleconsulta</a>
+      <a mat-list-item routerLink="/appointments">Citas</a>
+      <a
+        *ngIf="loggedIn.roles[0] === 'paciente'"
+        mat-list-item
+        routerLink="/prescriptions"
+      >
+        Recetas</a
+      >
+      <a *ngIf="loggedIn.roles[0] === 'doctor'" mat-list-item routerLink="/fuat"
+        >Fuat</a
+      >
+      <a
+        *ngIf="loggedIn.roles[0] === 'doctor'"
+        mat-list-item
+        routerLink="/reports"
+        >Reportes</a
+      >
+      <a mat-list-item routerLink="/chat">Chat</a>
+      <a mat-list-item routerLink="/forum">Foro</a>
+      <a
+        *ngIf="loggedIn.roles[0] === 'paciente'"
+        mat-list-item
+        routerLink="/questions"
+        >Preguntas</a
+      >
+      <a
+        *ngIf="loggedIn.roles[0] === 'doctor'"
+        mat-list-item
+        routerLink="/patients"
+        >Pacientes</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="mr-auto">Sistema Oncológico de Teleconsulta</span>
+      <button mat-button [matMenuTriggerFor]="beforeMenu" style="color: white">
+        <mat-icon class="mr-1">face</mat-icon>{{ loggedIn.nombres }}
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item>
+          <mat-icon class="mr-1">person</mat-icon>Mi perfil
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon class="mr-1">exit_to_app</mat-icon>Cerrar sesión
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <div class="container py-3">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

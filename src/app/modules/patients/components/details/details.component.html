@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Información completa</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="form">
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Nombres</mat-label>
+            <input matInput readonly [value]="user.nombres" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Apellidos</mat-label>
+            <input matInput readonly [value]="user.apellidos" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <mat-form-field class="w-100">
+      <mat-label>DNI</mat-label>
+      <input matInput readonly [value]="user.dni" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput readonly [value]="user.fecha_nacimiento" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Estado Civil</mat-label>
+      <input matInput readonly [value]="user.estado_civil" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Telefono</mat-label>
+      <input matInput readonly [value]="user.telefono" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Provincia</mat-label>
+      <input matInput readonly [value]="user.provincia" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Domicilio</mat-label>
+      <input matInput readonly [value]="user.domicilio" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pt-0">
+  <button mat-button mat-dialog-close color="primary">Cancelar</button>
+</mat-dialog-actions>

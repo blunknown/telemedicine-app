@@ -1,0 +1,49 @@
+<div class="row text-center">
+  <div class="col-md-4">
+    <mat-button-toggle-group>
+      <mat-button-toggle
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        >Anterior
+      </mat-button-toggle>
+      <mat-button-toggle
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        >Hoy
+      </mat-button-toggle>
+      <mat-button-toggle
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        >Siguiente
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate: view + "ViewTitle":locale }}</h3>
+  </div>
+  <div class="col-md-4">
+    <mat-button-toggle-group>
+      <mat-button-toggle
+        (click)="viewChange.emit(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
+        >Mes
+      </mat-button-toggle>
+      <mat-button-toggle
+        (click)="viewChange.emit(CalendarView.Week)"
+        [class.active]="view === CalendarView.Week"
+        >Semana
+      </mat-button-toggle>
+      <mat-button-toggle
+        (click)="viewChange.emit(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day"
+        >Día
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+<br />

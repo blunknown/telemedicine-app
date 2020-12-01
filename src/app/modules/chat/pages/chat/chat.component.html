@@ -1,0 +1,84 @@
+<h1>Chat</h1>
+<p>
+  Lorem ipsum dolor sit, amet consectetur adipisicing elit. A tempora nostrum
+  error dolore sequi pariatur, eligendi voluptatem enim et suscipit. Repellendus
+  sint quam, similique quos laboriosam hic maiores porro corporis.
+</p>
+<div class="row">
+  <div class="col-md-4">
+    <mat-card style="height: 394.56px">
+      <ng-template #loadingUsers>
+        <div class="users-loading-shade">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-template>
+      <mat-selection-list
+        class="pt-0"
+        *ngIf="users$ | async as users; else loadingUsers"
+        [multiple]="false"
+      >
+        <mat-list-option *ngFor="let user of users" (click)="selectUser(user)">
+          <div mat-list-icon class="dot"></div>
+          <div mat-line>{{ user.nombres }}</div>
+          <div mat-line>{{ user.telefono }}</div>
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card>
+  </div>
+  <div class="col-md-8">
+    <mat-card *ngIf="selectedUser">
+      <mat-card-header class="mb-2">
+        <div mat-card-avatar class="header-image"></div>
+        <mat-card-title>{{
+          selectedUser.nombres + " " + selectedUser.apellidos
+        }}</mat-card-title>
+        <mat-card-subtitle class="mb-0">{{
+          selectedUser.telefono
+        }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="w-100 mb-0">
+        <ng-template #loadingMessages>
+          <div class="messages-loading-shade">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+        <mat-list role="list">
+          <cdk-virtual-scroll-viewport
+            itemSize="50"
+            class="viewport w-100"
+            *ngIf="!isLoadingMessages; else loadingMessages"
+          >
+            <mat-list-item
+              *cdkVirtualFor="let message of messages"
+              [class]="getMessageClass(message) + ' item'"
+              role="listitem"
+              >{{ message.texto }}</mat-list-item
+            >
+          </cdk-virtual-scroll-viewport>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <form
+          [formGroup]="form"
+          class="d-flex w-100 px-3"
+          (ngSubmit)="sendMessage($event)"
+        >
+          <mat-form-field class="w-100 mr-3">
+            <mat-label>Mensaje</mat-label>
+            <input
+              type="text"
+              autocomplete="off"
+              matInput
+              placeholder="Ej. It makes me feel..."
+              formControlName="message"
+            />
+          </mat-form-field>
+          <button type="submit" mat-mini-fab color="primary" class="my-auto">
+            <mat-icon>send</mat-icon>
+          </button>
+        </form>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
