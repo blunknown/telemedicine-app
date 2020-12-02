@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-md-6 col-lg-4 mx-auto">
       <form [formGroup]="form" (ngSubmit)="login($event)">
-        
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="isLoading"
+        ></mat-progress-bar>
         <mat-card>
           <img mat-card-image src="assets/img/teleconsult.jpg" alt="Image" />
-          <div class="loading-shade" *ngIf="isLoading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-          </div>
           <mat-card-header>
             <div mat-card-avatar class="header-image"></div>
             <mat-card-title>Acceso</mat-card-title>
@@ -41,6 +41,7 @@
               >Recuperar contraseña</a
             >
           </mat-card-actions>
+          <div class="loading-shade" *ngIf="isLoading"></div>
         </mat-card>
       </form>
     </div>

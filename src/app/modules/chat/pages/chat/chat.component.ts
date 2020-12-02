@@ -16,10 +16,11 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class ChatComponent implements OnInit {
   form: FormGroup;
-  users$: Observable<User[]>;
   selectedUser: User;
+  users: User[];
   messages: Message[] = [];
   loggedIn: User;
+  isLoadingUsers = false;
   isLoadingMessages = false;
 
   constructor(
@@ -34,10 +35,15 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users$ =
+    this.isLoadingUsers = true;
+    const users$ =
       this.loggedIn.roles[0] === 'doctor'
         ? this.userService.getPatientsByDoctorId(this.loggedIn._id)
         : this.userService.getDoctorsByPatientId(this.loggedIn._id);
+    users$.subscribe((users) => {
+      this.users = users;
+      this.isLoadingUsers = false;
+    });
     this.socketService.listen('sendMessage').subscribe((message: Message) => {
       this.messages = [...this.messages, message];
     });

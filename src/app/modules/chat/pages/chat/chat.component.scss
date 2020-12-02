@@ -20,10 +20,10 @@
 }
 
 .messages-loading-shade {
-  height: 250px;
+  position: absolute;
   top: 0;
   left: 0;
-  bottom: 56px;
+  bottom: 0;
   right: 0;
   background: #fff;
   opacity: 0.5;
@@ -34,10 +34,10 @@
 }
 
 .users-loading-shade {
-  height: 100%;
+  position: absolute;
   top: 0;
   left: 0;
-  bottom: 56px;
+  bottom: 0;
   right: 0;
   background: #fff;
   opacity: 0.5;
@@ -46,4 +46,3 @@
   align-items: center;
   justify-content: center;
 }
-
