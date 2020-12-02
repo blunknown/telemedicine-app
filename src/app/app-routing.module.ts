@@ -95,11 +95,22 @@ const routes: Routes = [
       import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: '**',
+    path: 'forbidden',
+    loadChildren: () =>
+      import('./modules/forbidden/forbidden.module').then(
+        (m) => m.ForbiddenModule
+      ),
+  },
+  {
+    path: 'not-found',
     loadChildren: () =>
       import('./modules/not-found/not-found.module').then(
         (m) => m.NotFoundModule
       ),
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found',
   },
 ];
 

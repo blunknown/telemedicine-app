@@ -1,4 +1,7 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container
+  class="sidenav-container"
+  *ngIf="loggedIn$ | async as loggedIn"
+>
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -7,8 +10,11 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-toolbar class="bg-primary">INEN</mat-toolbar>
+    <div mat-list-icon class="dot mx-auto mb-2 mt-3"></div>
+    <h3 class="text-center">{{ loggedIn.nombres }} {{ loggedIn.apellidos }}</h3>
+    <mat-divider></mat-divider>
+    <mat-nav-list class="pt-0">
       <a mat-list-item routerLink="/home">Inicio</a>
       <a mat-list-item routerLink="/teleconsult">Teleconsulta</a>
       <a mat-list-item routerLink="/appointments">Citas</a>

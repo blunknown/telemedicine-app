@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
-  loggedIn: User;
+  loggedIn$: Observable<User>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit {
     private socketService: SocketService,
     private router: Router
   ) {
-    this.loggedIn = this.authService.loggedIn;
+    this.loggedIn$ = this.authService.loggedIn$;
   }
 
   ngOnInit(): void {}

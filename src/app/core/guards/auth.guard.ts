@@ -33,12 +33,13 @@ export class AuthGuard implements CanActivate {
       return this.authService.getLoggedIn().pipe(
         map((user) => {
           this.authService.loggedIn = user;
-          this.socketService.connect(user);
+          if (!this.socketService.isConnected()) {
+            this.socketService.connect(user);
+          }
           return true;
         })
       );
     }
-    this.authService.loggedIn = null;
     this.router.navigate(['/login']);
     return false;
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { Credentials } from 'src/app/core/interfaces/credentials.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -38,7 +37,6 @@ export class LoginComponent implements OnInit {
       const credentials: Credentials = this.form.value;
       this.authService
         .login(credentials)
-        .pipe(switchMap(() => this.authService.getLoggedIn()))
         .subscribe(() => this.router.navigate(['/home']));
     }
   }

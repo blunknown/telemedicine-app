@@ -25,8 +25,7 @@ export class RoleGuard implements CanActivate {
     | UrlTree {
     const user = this.authService.loggedIn;
     if (route.data.roles.indexOf(user.roles[0]) === -1) {
-      this.authService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/forbidden']);
       return false;
     }
     return true;

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../interfaces/auth-response.interface';
 import { Credentials } from '../interfaces/credentials.interface';
@@ -28,13 +28,13 @@ export class AuthService {
     this.loggedInSubject.next(user);
   }
 
-  login(credentials: Credentials): Observable<AuthResponse> {
+  login(credentials: Credentials): Observable<User> {
     return this.httpClient
       .post<AuthResponse>(`${environment.apiUrl}/login`, credentials)
       .pipe(
-        tap((authResponse) => {
-          const { token } = authResponse;
-          this.storageService.saveJwt(token);
+        switchMap((authResponse) => {
+          this.storageService.saveJwt(authResponse.token);
+          return this.getLoggedIn();
         })
       );
   }
