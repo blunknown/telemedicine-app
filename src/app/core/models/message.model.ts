@@ -1,6 +1,7 @@
 export interface Message {
   _id?: string;
   dir: number;
-  texto: string;
+  texto?: string;
+  image?: string;
   created_at: string;
 }

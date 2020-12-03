@@ -44,16 +44,40 @@
               *cdkVirtualFor="let message of messages"
               [class]="getMessageClass(message) + ' item'"
               role="listitem"
-              >{{ message.texto }}</mat-list-item
             >
+              <!-- {{ message.image }} -->
+              <div *ngIf="message.texto">{{ message.texto }}</div>
+              <button
+                *ngIf="message.image"
+                mat-mini-fab
+                color="warn"
+                (click)="openImage(message.image)"
+              >
+                <mat-icon>collections</mat-icon>
+              </button>
+            </mat-list-item>
             <div class="messages-loading-shade" *ngIf="isLoadingMessages"></div>
           </cdk-virtual-scroll-viewport>
         </mat-list>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions class="d-flex w-100 px-2">
+        <input
+          type="file"
+          class="d-none"
+          #imageInput
+          (change)="onImageSelected($event)"
+        />
+        <button
+          mat-icon-button
+          color="primary"
+          class="my-auto mr-1"
+          (click)="imageInput.click()"
+        >
+          <mat-icon>attach_file</mat-icon>
+        </button>
         <form
           [formGroup]="form"
-          class="d-flex w-100 px-3"
+          class="d-flex w-100"
           (ngSubmit)="sendMessage($event)"
         >
           <mat-form-field class="w-100 mr-3">

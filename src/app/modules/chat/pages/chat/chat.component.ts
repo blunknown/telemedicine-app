@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { MessageRequest } from 'src/app/core/interfaces/message-request.interface';
 import { Message } from 'src/app/core/models/message.model';
 import { User } from 'src/app/core/models/user.model';
@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { MessageService } from 'src/app/core/services/message.service';
 import { SocketService } from 'src/app/core/services/socket.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { ImageDialogComponent } from '../../components/image-dialog/image-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -22,13 +23,15 @@ export class ChatComponent implements OnInit {
   loggedIn: User;
   isLoadingUsers = false;
   isLoadingMessages = false;
+  imageBase64: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private messageService: MessageService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    public dialog: MatDialog
   ) {
     this.buildForm();
     this.loggedIn = this.authService.loggedIn;
@@ -92,5 +95,32 @@ export class ChatComponent implements OnInit {
         ? 'bg-primary'
         : 'bg-accent d-flex justify-content-end';
     }
+  }
+
+  onImageSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files[0]) {
+      const image = target.files[0];
+      this.uploadImage(image);
+    }
+  }
+
+  uploadImage(image: File): void {
+    const { _id } = this.selectedUser;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const messageRequest: MessageRequest = {
+        receiver: _id,
+        image: ev.target.result.toString(),
+      };
+      this.socketService.emit('sendMessage', messageRequest);
+    };
+    reader.readAsDataURL(image);
+  }
+
+  openImage(image: string): void {
+    this.dialog.open(ImageDialogComponent, {
+      data: image,
+    });
   }
 }
