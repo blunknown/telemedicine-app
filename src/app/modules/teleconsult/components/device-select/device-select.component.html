@@ -1,0 +1,22 @@
+<!-- <label for="{{ id }}" class="h5">{{ label }}</label> -->
+<mat-form-field appearance="fill">
+  <mat-label>Seleccione una camara</mat-label>
+  <mat-select id="{{ id }}" (change)="onSettingsChanged($event.target.value)">
+    <mat-option *ngFor="let device of devices" [value]="device.deviceId">
+      {{ device.label }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<!-- <select
+  class="custom-select"
+  id="{{ id }}"
+  (change)="onSettingsChanged($event.target.value)"
+>
+  <option
+    *ngFor="let device of devices"
+    [value]="device.deviceId"
+    [selected]="device.deviceId === selectedId"
+  >
+    {{ device.label }}
+  </option>
+</select> -->

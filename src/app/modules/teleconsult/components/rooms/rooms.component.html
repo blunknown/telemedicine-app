@@ -1,0 +1,52 @@
+<div class="jumbotron">
+  <!-- <h1>Salas de teleconsulta</h1> -->
+  <div class="list-group">
+    <div
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <div class="input-group mt-3">
+        <mat-form-field>
+          <mat-label>Nombre de la sala</mat-label>
+          <input
+          type="text"
+          autocomplete="off"
+            matInput
+            placeholder="Ej. Sala de Jorge"
+            [(ngModel)]="roomName"
+            (keydown.enter)="onTryAddRoom()"
+          />
+        </mat-form-field>
+        <div class="input-group-append">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!roomName"
+            (click)="onAddRoom(roomName)"
+          >
+            Unirse a la sala
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <div
+      *ngIf="!rooms || !rooms.length"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <p class="lead">
+        Add a room to begin. Other online participants can join or create rooms.
+      </p>
+    </div> -->
+    <!-- <a
+      href="#"
+      *ngFor="let room of rooms"
+      (click)="onJoinRoom(room.name)"
+      [ngClass]="{ active: activeRoomName === room.name }"
+      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+    >
+      {{ room.name }}
+      <span class="badge badge-primary badge-pill">
+        {{ room.participantCount }} / {{ room.maxParticipants }}
+      </span>
+    </a> -->
+  </div>
+</div>

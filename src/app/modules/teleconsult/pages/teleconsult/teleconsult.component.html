@@ -1,1 +1,42 @@
-<p>teleconsult works!</p>
+<h1>Teleconsulta</h1>
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt ipsam fugit
+  veniam dolorum sint est voluptatem maxime nemo esse reprehenderit quae libero
+  dolorem sequi, nihil reiciendis voluptate ut architecto quis!
+</p>
+<div class="grid-container">
+  <!-- <div class="grid-bottom-right">
+    <a href="https://twitter.com/davidpine7" target="_blank"
+      ><i class="fab fa-twitter"></i> @davidpine7</a
+    >
+  </div> -->
+  <div class="grid-left pl-3">
+    <app-rooms
+      #rooms
+      (roomChanged)="onRoomChanged($event)"
+      [activeRoomName]="!!activeRoom ? activeRoom.name : null"
+    ></app-rooms>
+  </div>
+  <div class="grid-content">
+    <app-camera
+      #camera
+      [style.display]="!!activeRoom ? 'none' : 'block'"
+    ></app-camera>
+    <app-participants
+      #participants
+      (leaveRoom)="onLeaveRoom($event)"
+      (participantsChanged)="onParticipantsChanged($event)"
+      [style.display]="!!activeRoom ? 'block' : 'none'"
+      [activeRoomName]="!!activeRoom ? activeRoom.name : null"
+    ></app-participants>
+  </div>
+  <div class="grid-right pl-3 pt-3">
+    <app-settings
+      #settings
+      (settingsChanged)="onSettingsChanged($event)"
+    ></app-settings>
+  </div>
+  <!-- <div class="grid-top-left">
+    <h1>Teleconsulta</h1>
+  </div> -->
+</div>

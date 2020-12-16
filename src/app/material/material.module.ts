@@ -18,6 +18,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -40,6 +41,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ScrollingModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
   ],
 })
 export class MaterialModule {}

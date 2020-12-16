@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+export type StorageKey = 'audioInputId' | 'audioOutputId' | 'videoInputId';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,5 +18,23 @@ export class StorageService {
 
   removeJwt(): void {
     localStorage.removeItem('jwt');
+  }
+
+  get(key: StorageKey): string {
+    return localStorage.getItem(this.formatAppStorageKey(key));
+  }
+
+  set(key: StorageKey, value: string) {
+    if (value && value !== 'null') {
+      localStorage.setItem(this.formatAppStorageKey(key), value);
+    }
+  }
+
+  remove(key: StorageKey) {
+    localStorage.removeItem(this.formatAppStorageKey(key));
+  }
+
+  private formatAppStorageKey(key: StorageKey) {
+    return `iEvangelist.videoChat.${key}`;
   }
 }
