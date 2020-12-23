@@ -21,6 +21,13 @@
       <a
         *ngIf="loggedIn.roles[0] === 'paciente'"
         mat-list-item
+        routerLink="/teletry"
+      >
+        Teletriaje</a
+      >
+      <a
+        *ngIf="loggedIn.roles[0] === 'paciente'"
+        mat-list-item
         routerLink="/prescriptions"
       >
         Recetas</a

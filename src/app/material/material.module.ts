@@ -19,6 +19,10 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -42,6 +46,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatStepperModule,
+    MatSnackBarModule,
   ],
 })
 export class MaterialModule {}

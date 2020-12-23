@@ -35,6 +35,15 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'teletry',
+        canActivate: [RoleGuard],
+        data: { roles: ['paciente'] },
+        loadChildren: () =>
+          import('./modules/teletry/teletry.module').then(
+            (m) => m.TeletryModule
+          ),
+      },
+      {
         path: 'prescriptions',
         canActivate: [RoleGuard],
         data: { roles: ['paciente'] },

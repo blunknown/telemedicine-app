@@ -14,4 +14,6 @@ export interface User {
   password: string;
   foto: string;
   roles: string[];
+  ue: string;
+  ur: string;
 }

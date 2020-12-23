@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsComponent } from '../../components/details/details.component';
+import { TeletriagesComponent } from '../../components/teletriages/teletriages.component';
 
 @Component({
   selector: 'app-patients',
@@ -15,7 +16,14 @@ import { DetailsComponent } from '../../components/details/details.component';
   styleUrls: ['./patients.component.scss'],
 })
 export class PatientsComponent implements OnInit {
-  displayedColumns: string[] = ['nombres', 'apellidos', 'dni', 'acciones'];
+  displayedColumns: string[] = [
+    'nombres',
+    'apellidos',
+    'dni',
+    'estado',
+    'recomendacion',
+    'acciones',
+  ];
   dataSource: MatTableDataSource<User>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -49,5 +57,9 @@ export class PatientsComponent implements OnInit {
 
   openDetails(user: User): void {
     this.dialog.open(DetailsComponent, { data: user, autoFocus: false });
+  }
+
+  openTeletriages(user: User): void {
+    this.dialog.open(TeletriagesComponent, { data: user, autoFocus: false });
   }
 }

@@ -1,45 +1,45 @@
 <h2 mat-dialog-title>Información completa</h2>
 <mat-dialog-content class="mat-typography">
-  <form class="form">
+  <form class="form" [formGroup]="form">
     <table class="w-100" cellspacing="0">
       <tr>
         <td>
           <mat-form-field class="w-100">
             <mat-label>Nombres</mat-label>
-            <input matInput readonly [value]="user.nombres" />
+            <input matInput readonly formControlName="nombres" />
           </mat-form-field>
         </td>
         <td>
           <mat-form-field class="w-100">
             <mat-label>Apellidos</mat-label>
-            <input matInput readonly [value]="user.apellidos" />
+            <input matInput readonly formControlName="apellidos" />
           </mat-form-field>
         </td>
       </tr>
     </table>
     <mat-form-field class="w-100">
       <mat-label>DNI</mat-label>
-      <input matInput readonly [value]="user.dni" />
+      <input matInput readonly formControlName="dni" />
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>Fecha de nacimiento</mat-label>
-      <input matInput readonly [value]="user.fecha_nacimiento" />
+      <input matInput readonly formControlName="fecha_nacimiento" />
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>Estado Civil</mat-label>
-      <input matInput readonly [value]="user.estado_civil" />
+      <input matInput readonly formControlName="estado_civil" />
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>Telefono</mat-label>
-      <input matInput readonly [value]="user.telefono" />
+      <input matInput readonly formControlName="telefono" />
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>Provincia</mat-label>
-      <input matInput readonly [value]="user.provincia" />
+      <input matInput readonly formControlName="provincia" />
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>Domicilio</mat-label>
-      <input matInput readonly [value]="user.domicilio" />
+      <input matInput readonly formControlName="domicilio" />
     </mat-form-field>
   </form>
 </mat-dialog-content>

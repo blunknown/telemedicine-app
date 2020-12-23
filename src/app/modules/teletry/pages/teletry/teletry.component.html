@@ -1,0 +1,337 @@
+<h1>Encuesta de control teletriaje</h1>
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur quaerat
+  debitis, sint, dolorum nihil totam blanditiis alias praesentium, ipsam nemo
+  temporibus eligendi atque tenetur quibusdam similique id quae! Voluptates,
+  nostrum?
+</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)" #f="ngForm">
+  <mat-card class="card mx-auto mb-3">
+    <!-- <mat-card-content class="mx-3"> -->
+    <div class="m-3">
+      <h2>Signos vitales</h2>
+      <mat-form-field class="example-full-width">
+        <mat-label>Temperatura</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="temperatura"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Glucosa</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="glucosa"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Frecuencia arterial (lat/min)</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="frecuencia_arterial"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Frecuencia respiratoria (lat/min)</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="frecuencia_respiratoria"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Presion arterial diastólica (mmhg)</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="presion_arterial_diastolica"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Presion arterial sistólica (mmhg)</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="presion_arterial_sistolica"
+        />
+      </mat-form-field>
+    </div>
+    <div class="m-3">
+      <h2>Dolor herida operatoria</h2>
+      <label
+        >En una escala del 1 al 10, donde 0 es ausencia de dolor y 10 el maximo
+        dolor que se pueda percibir subjetivamente. ¿Cuanto califica su
+        dolor?</label
+      >
+      <img
+        mat-card-image
+        src="assets/img/dolor.jpeg"
+        alt="Image"
+        class="mb-0"
+      />
+      <mat-form-field class="example-full-width">
+        <mat-label>Escala de dolor</mat-label>
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="dolor"
+        />
+      </mat-form-field>
+    </div>
+    <div class="m-3">
+      <h2>Sangrado por via vagina</h2>
+      <label id="example-radio-group-label"
+        >¿Tiene usted secreción o flujo por vagina?</label
+      >
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="sangrado_vagina"
+        name="sangrado_vagina"
+        color="primary"
+        (change)="handleRadio($event)"
+      >
+        <mat-radio-button class="example-radio-button" value="Si">
+          Si
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="No">
+          No
+        </mat-radio-button>
+      </mat-radio-group>
+      <label id="example-radio-group-label">¿Que color tiene?</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="color_sangrado_vagina"
+        color="primary"
+      >
+        <mat-radio-button class="example-radio-button" value="Rojo claro">
+          Rojo claro
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo oscuro">
+          Rojo oscuro
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo vivo">
+          Rojo vivo
+        </mat-radio-button>
+        <mat-radio-button
+          class="example-radio-button"
+          value="Amarillo transparente"
+        >
+          Amarillo transparente
+        </mat-radio-button>
+        <mat-radio-button
+          class="example-radio-button"
+          value="Verde mal oliente"
+        >
+          Verde mal oliente
+        </mat-radio-button>
+        <mat-radio-button
+          class="example-radio-button"
+          value="Verde mal oliente"
+        >
+          Verde mal oliente
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="m-3">
+      <h2>Secreción por herida operatoria abdominal</h2>
+      <label id="example-radio-group-label"
+        >¿Tiene usted secreción por la herida operatoria abdominal?</label
+      >
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="sangrado_herida"
+        name="sangrado_herida"
+        color="primary"
+        (change)="handleRadio($event)"
+      >
+        <mat-radio-button class="example-radio-button" value="Si">
+          Si
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="No">
+          No
+        </mat-radio-button>
+      </mat-radio-group>
+      <label id="example-radio-group-label">¿Que color tiene?</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="color_sangrado_herida"
+        color="primary"
+      >
+        <mat-radio-button class="example-radio-button" value="Rojo claro">
+          Rojo claro
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo oscuro">
+          Rojo oscuro
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo vivo">
+          Rojo vivo
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Purulento (pus)">
+          Purulento (pus)
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Aceitoso (graso)">
+          Aceitoso (graso)
+        </mat-radio-button>
+        <mat-radio-button
+          class="example-radio-button"
+          value="Verde mal oliente"
+        >
+          Verde mal oliente
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="m-3">
+      <h2>Coloración de herida operatoria abdominal</h2>
+      <label id="example-radio-group-label"
+        >¿Nota usted alguna coloración alrededor de su herida operatoria
+        abdominal?</label
+      >
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="coloracion_herida"
+        color="primary"
+        name="coloracion_herida"
+        (change)="handleRadio($event)"
+      >
+        <mat-radio-button class="example-radio-button" value="Si">
+          Si
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="No">
+          No
+        </mat-radio-button>
+      </mat-radio-group>
+      <label id="example-radio-group-label">¿Que color tiene?</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="color_coloracion_herida"
+        color="primary"
+      >
+        <mat-radio-button class="example-radio-button" value="Rojo claro">
+          Rojo (doloroso a la palpación)
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo oscuro">
+          Morado (ligero dolor a la palpación)
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo vivo">
+          Rojo brilloso-turgente (doloroso a la palpación - hinchado)
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="m-3">
+      <h2>Micción</h2>
+      <label id="example-radio-group-label"
+        >Al momento de miccionar. ¿Tiene usted alguna molestia?</label
+      >
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="molestia_miccion"
+        color="primary"
+        name="molestia_miccion"
+        (change)="handleRadio($event)"
+      >
+        <mat-radio-button class="example-radio-button" value="Si">
+          Si
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="No">
+          No
+        </mat-radio-button>
+      </mat-radio-group>
+      <label id="example-radio-group-label"
+        >¿Que molestia(s) presenta? Puede marcar mas de una opción</label
+      >
+      <section class="example-section">
+        <ul>
+          <li *ngFor="let tipo of tiposMiccion">
+            <mat-checkbox
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="tipo.checked"
+              [value]="tipo.value"
+              style="margin: 5px"
+              (change)="handleTiposMiccion($event)"
+              color="primary"
+              [disabled]="tipo.disabled"
+            >
+              {{ tipo.text }}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <div class="m-3">
+      <h2>Ritmo evacuatorio frecuencia y textura</h2>
+      <label>¿Cuantas veces al dia defeca?</label>
+      <mat-form-field class="example-full-width">
+        <!-- <mat-label></mat-label> -->
+        <input
+          autocomplete="off"
+          type="number"
+          matInput
+          formControlName="veces_defeca_dia"
+        />
+      </mat-form-field>
+      <label id="example-radio-group-label"
+        >¿Que textura tienen sus heces?</label
+      >
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="textura_heces"
+        color="primary"
+      >
+        <mat-radio-button class="example-radio-button" value="Solidos">
+          Solidos
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Liquidos">
+          Liquidos
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="Rojo vivo">
+          Rojo vivo
+        </mat-radio-button>
+        <mat-radio-button
+          class="example-radio-button"
+          value="Pastozas (mazamorras)"
+        >
+          Pastozas (mazamorras)
+        </mat-radio-button>
+        <mat-radio-button
+          class="example-radio-button"
+          value="Cilindrica (blanda no dolorosa)"
+        >
+          Cilindrica (blanda no dolorosa)
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="m-3">
+      <h2>Otros</h2>
+      <label>¿Siente usted algun otro tipo de molestia? (Opcional)</label>
+      <mat-form-field class="example-full-width">
+        <!-- <mat-label
+          >¿Siente usted algun otro tipo de molestia? (Opcional)</mat-label
+        > -->
+        <textarea formControlName="otros" matInput></textarea>
+      </mat-form-field>
+    </div>
+    <div class="mx-3 d-flex justify-content-end">
+      <button mat-raised-button color="primary" type="submit">
+        Enviar teletriaje
+      </button>
+    </div>
+  </mat-card>
+</form>
