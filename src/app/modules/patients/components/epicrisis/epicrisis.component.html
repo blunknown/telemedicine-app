@@ -1,0 +1,134 @@
+<h2 mat-dialog-title>Epicrisis del paciente</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="form" [formGroup]="form">
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Fecha procedimiento</mat-label>
+            <input matInput readonly formControlName="fecha_procedimiento" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Fecha alta</mat-label>
+            <input matInput readonly formControlName="fecha_alta" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Presion arterial sistolica</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="presion_arterial_sistolica"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Presion arterial diastolica</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="presion_arterial_diastolica"
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Temperatura</mat-label>
+            <input matInput readonly formControlName="temperatura" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Frecuencia arterial</mat-label>
+            <input matInput readonly formControlName="frecuencia_arterial" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Frecuencia respiratoria</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="frecuencia_respiratoria"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Diagnostico ingreso</mat-label>
+            <input matInput readonly formControlName="diagnostico_ingreso" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <mat-form-field class="w-100">
+      <mat-label>Diagnostico egreso</mat-label>
+      <input matInput readonly formControlName="diagnostico_egreso" />
+    </mat-form-field>
+    <mat-form-field
+      class="w-100"
+      formArrayName="medicacion"
+      *ngFor="let med of medicacion.controls; let i = index"
+    >
+      <mat-label>Medicacion {{ i + 1 }}</mat-label>
+      <input matInput readonly [formControlName]="i" />
+    </mat-form-field>
+    <mat-form-field
+      class="w-100"
+      formArrayName="medicacion"
+      *ngFor="let medidas of medidas_terapeuticas.controls; let i = index"
+    >
+      <mat-label>Medida terapeutica {{ i + 1 }}</mat-label>
+      <input matInput readonly [formControlName]="i" />
+    </mat-form-field>
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput readonly formControlName="fecha_nacimiento" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Dias post operado</mat-label>
+            <input matInput readonly formControlName="dias_post_operado" />
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Dias alta</mat-label>
+            <input matInput readonly formControlName="dias_alta" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Edad</mat-label>
+            <input matInput readonly formControlName="edad" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pt-0">
+  <button mat-button mat-dialog-close color="primary">Cancelar</button>
+</mat-dialog-actions>

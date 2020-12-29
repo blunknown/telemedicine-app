@@ -1,5 +1,11 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -68,7 +74,15 @@ export class TeletriagesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(teletriages);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.setupFilter();
       });
+  }
+
+  setupFilter(): void {
+    this.dataSource.filterPredicate = (teletry: Teletry, filter: string) =>
+      teletry.glucosa.toString().trim().toLowerCase().indexOf(filter) != -1 ||
+      teletry.estado.trim().toLowerCase().indexOf(filter) != -1 ||
+      teletry.recomendacion.trim().toLowerCase().indexOf(filter) != -1;
   }
 
   applyFilter(event: Event) {
@@ -80,8 +94,18 @@ export class TeletriagesComponent implements OnInit {
   }
 
   selectTeletry(teletry: Teletry) {
-    console.log(teletry);
     this.currentTeletry = teletry;
+    console.log(teletry);
+    if (teletry.molestia_miccion !== 'No') {
+      teletry.tipo_molestia_miccion.forEach(() => {
+        this.molestiaField.push(new FormControl(''));
+      });
+    }
+    console.log(teletry);
     this.form.patchValue(teletry);
+  }
+
+  get molestiaField() {
+    return this.form.get('tipo_molestia_miccion') as FormArray;
   }
 }

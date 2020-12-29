@@ -7,9 +7,10 @@ import { DetailsComponent } from './components/details/details.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TeletriagesComponent } from './components/teletriages/teletriages.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EpicrisisComponent } from './components/epicrisis/epicrisis.component';
 
 @NgModule({
-  declarations: [PatientsComponent, DetailsComponent, TeletriagesComponent],
+  declarations: [PatientsComponent, DetailsComponent, TeletriagesComponent, EpicrisisComponent],
   imports: [
     CommonModule,
     PatientsRoutingModule,

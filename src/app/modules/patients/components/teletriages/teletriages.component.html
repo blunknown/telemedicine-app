@@ -6,7 +6,7 @@
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step label="Teletriajes">
       <mat-form-field>
-        <mat-label>Filtro</mat-label>
+        <mat-label>Buscar por glucosa, estado o recomendacion</mat-label>
         <input
           matInput
           (keyup)="applyFilter($event)"
@@ -178,8 +178,21 @@
           <input matInput readonly formControlName="molestia_miccion" />
         </mat-form-field>
         <label>¿Que molestia(s) presenta?</label>
-        <mat-form-field class="w-100">
-          <input matInput readonly formControlName="tipo_molestia_miccion" />
+        <div class="mt-2">
+          <mat-form-field
+            class="w-100"
+            formArrayName="tipo_molestia_miccion"
+            *ngFor="let med of molestiaField.controls; let i = index"
+          >
+            <mat-label>Molestia micción {{ i + 1 }}</mat-label>
+            <input matInput readonly [formControlName]="i" />
+          </mat-form-field>
+        </div>
+        <mat-form-field
+          class="w-100"
+          *ngIf="molestiaField.controls.length === 0"
+        >
+          <input matInput readonly value="No presenta ninguna molestia" />
         </mat-form-field>
         <label>¿Cuantas veces al dia defeca?</label>
         <mat-form-field class="w-100">
@@ -203,12 +216,8 @@
         </mat-form-field>
       </form>
     </mat-step>
-    <mat-step label="Graficos estadisticos"> 
-      <img
-        src="assets/img/estadistica.jpg"
-        alt="Image"
-        class="mb-0"
-      />
+    <mat-step label="Graficos estadisticos">
+      <img src="assets/img/estadistica.jpg" alt="Image" class="mb-0" />
     </mat-step>
   </mat-horizontal-stepper>
 </mat-dialog-content>

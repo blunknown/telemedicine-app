@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsComponent } from '../../components/details/details.component';
 import { TeletriagesComponent } from '../../components/teletriages/teletriages.component';
+import { EpicrisisComponent } from '../../components/epicrisis/epicrisis.component';
 
 @Component({
   selector: 'app-patients',
@@ -20,8 +21,8 @@ export class PatientsComponent implements OnInit {
     'nombres',
     'apellidos',
     'dni',
-    'estado',
-    'recomendacion',
+    'ue',
+    'ur',
     'acciones',
   ];
   dataSource: MatTableDataSource<User>;
@@ -44,7 +45,15 @@ export class PatientsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(users);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.setupFilter();
       });
+  }
+
+  setupFilter(): void {
+    this.dataSource.filterPredicate = (user: User, filter: string) =>
+      user.nombres.trim().toLowerCase().indexOf(filter) != -1 ||
+      user.apellidos.trim().toLowerCase().indexOf(filter) != -1 ||
+      user.dni.toString().trim().toLowerCase().indexOf(filter) != -1;
   }
 
   applyFilter(event: Event) {
@@ -61,5 +70,9 @@ export class PatientsComponent implements OnInit {
 
   openTeletriages(user: User): void {
     this.dialog.open(TeletriagesComponent, { data: user, autoFocus: false });
+  }
+
+  openEpicrisis(user: User): void {
+    this.dialog.open(EpicrisisComponent, { data: user, autoFocus: false });
   }
 }
