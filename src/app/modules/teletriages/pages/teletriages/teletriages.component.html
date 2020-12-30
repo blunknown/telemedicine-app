@@ -1,11 +1,11 @@
-<h1>Pacientes</h1>
+<h1>Mis Teletriajes</h1>
 <p>
   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex saepe quas
   placeat quae illo nobis sed perspiciatis alias, molestias ipsa explicabo
   perferendis repudiandae dolores culpa animi nulla in excepturi eum?
 </p>
 <mat-form-field>
-  <mat-label>Buscar por nombres, apellidos o DNI</mat-label>
+  <mat-label>Buscar por N°, fecha o recomendacion</mat-label>
   <input
     matInput
     (keyup)="applyFilter($event)"
@@ -17,31 +17,43 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- Nombres Column -->
-    <ng-container matColumnDef="nombres">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</th>
-      <td mat-cell *matCellDef="let element">{{ element.nombres }}</td>
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>N°</th>
+      <td mat-cell *matCellDef="let element">{{ element.numero }}</td>
     </ng-container>
     <!-- Apellidos Column -->
-    <ng-container matColumnDef="apellidos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
-      <td mat-cell *matCellDef="let element">{{ element.apellidos }}</td>
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+      <td mat-cell *matCellDef="let element">{{ element.created_at }}</td>
     </ng-container>
     <!-- DNI Column -->
-    <ng-container matColumnDef="dni">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-      <td mat-cell *matCellDef="let element">{{ element.dni }}</td>
+    <ng-container matColumnDef="indicadores">
+      <th mat-header-cell *matHeaderCellDef>Indicadores de estado</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="d-flex text-center">
+          <div class="mr-1">
+            <div class="verde"></div>
+            {{ element.verde }}
+          </div>
+          <div class="mr-1">
+            <div class="amarillo"></div>
+            {{ element.amarillo }}
+          </div>
+          <div class="mr-1">
+            <div class="naranja"></div>
+            {{ element.naranja }}
+          </div>
+          <div class="mr-1">
+            <div class="rojo"></div>
+            {{ element.rojo }}
+          </div>
+        </div>
+      </td>
     </ng-container>
     <!-- DNI Column -->
-    <ng-container matColumnDef="ue">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ultimo estado</th>
-      <td mat-cell *matCellDef="let element">{{ element.ue }}</td>
-    </ng-container>
-    <!-- DNI Column -->
-    <ng-container matColumnDef="ur">
-      <th mat-header-cell *matHeaderCellDef>
-        Ultima recomendación
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.ur }}</td>
+    <ng-container matColumnDef="recomendacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Recomendacion</th>
+      <td mat-cell *matCellDef="let element">{{ element.recomendacion }}</td>
     </ng-container>
     <!-- Acciones Column -->
     <ng-container matColumnDef="acciones">
@@ -51,14 +63,8 @@
           mat-mini-fab
           color="primary"
           class="mr-2"
-          (click)="openDetails(element)"
+          (click)="selectTeletry(element)"
         >
-          <mat-icon>description</mat-icon>
-        </button>
-        <button mat-mini-fab color="accent" class="mr-2" (click)="openTeletriages(element)">
-          <mat-icon>table_view</mat-icon>
-        </button>
-        <button mat-mini-fab color="warn" (click)="openEpicrisis(element)">
           <mat-icon>description</mat-icon>
         </button>
       </td>

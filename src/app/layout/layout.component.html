@@ -12,7 +12,9 @@
   >
     <mat-toolbar class="bg-primary">INEN</mat-toolbar>
     <div mat-list-icon class="dot mx-auto mb-2 mt-3"></div>
-    <h3 class="text-center">{{ loggedIn.nombres }} {{ loggedIn.apellidos }}</h3>
+    <div class="mb-3 text-center font-weight-bold">
+      {{ loggedIn.nombres }} {{ loggedIn.apellidos }}
+    </div>
     <mat-divider></mat-divider>
     <mat-nav-list class="pt-0">
       <a mat-list-item routerLink="/home">Inicio</a>
@@ -24,6 +26,13 @@
         routerLink="/teletry"
       >
         Teletriaje</a
+      >
+      <a
+        *ngIf="loggedIn.roles[0] === 'paciente'"
+        mat-list-item
+        routerLink="/teletriages"
+      >
+        Mis Teletriajes</a
       >
       <a
         *ngIf="loggedIn.roles[0] === 'paciente'"

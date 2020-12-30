@@ -6,13 +6,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Teletry } from 'src/app/core/models/teletry.model';
 import { User } from 'src/app/core/models/user.model';
 import { TeletryService } from 'src/app/core/services/teletry.service';
+import { MedicationComponent } from '../medication/medication.component';
 
 @Component({
   selector: 'app-teletriages',
@@ -22,8 +23,10 @@ import { TeletryService } from 'src/app/core/services/teletry.service';
 export class TeletriagesComponent implements OnInit {
   isLinear = false;
   displayedColumns: string[] = [
-    'glucosa',
+    'numero',
+    'created_at',
     'estado',
+    'indicadores',
     'recomendacion',
     'acciones',
   ];
@@ -36,7 +39,8 @@ export class TeletriagesComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public user: User,
     private teletryService: TeletryService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog
   ) {
     this.buildForm();
   }
@@ -71,6 +75,12 @@ export class TeletriagesComponent implements OnInit {
       .getTeletriagesByPatientId(this.user._id)
       .subscribe((teletriages) => {
         console.log(teletriages);
+        let size = teletriages.length;
+        teletriages.forEach((teletry) => {
+          teletry.numero = size;
+          size--;
+        });
+        console.log(teletriages);
         this.dataSource = new MatTableDataSource(teletriages);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -80,9 +90,10 @@ export class TeletriagesComponent implements OnInit {
 
   setupFilter(): void {
     this.dataSource.filterPredicate = (teletry: Teletry, filter: string) =>
-      teletry.glucosa.toString().trim().toLowerCase().indexOf(filter) != -1 ||
-      teletry.estado.trim().toLowerCase().indexOf(filter) != -1 ||
-      teletry.recomendacion.trim().toLowerCase().indexOf(filter) != -1;
+      teletry.numero.toString().trim().toLowerCase().indexOf(filter) != -1 ||
+      teletry.created_at.trim().toLowerCase().indexOf(filter) != -1 ||
+      teletry.recomendacion.trim().toLowerCase().indexOf(filter) != -1 ||
+      teletry.estado.trim().toLowerCase().indexOf(filter) != -1;
   }
 
   applyFilter(event: Event) {
@@ -107,5 +118,9 @@ export class TeletriagesComponent implements OnInit {
 
   get molestiaField() {
     return this.form.get('tipo_molestia_miccion') as FormArray;
+  }
+
+  showMedication(teletry: Teletry) {
+    this.dialog.open(MedicationComponent, { data: teletry, autoFocus: false });
   }
 }

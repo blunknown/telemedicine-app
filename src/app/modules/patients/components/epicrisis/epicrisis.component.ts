@@ -46,10 +46,17 @@ export class EpicrisisComponent implements OnInit {
       .getEpicrisisByPatientId(this.user._id)
       .subscribe((epicrisis) => {
         const epi = epicrisis[0];
-        epi.medicacion.forEach(() => {
-          this.medicacion.push(new FormControl(''));
-          this.medidas_terapeuticas.push(new FormControl(''));
-        });
+        console.log(epi);
+        if (epi.medicacion) {
+          epi.medicacion.forEach(() => {
+            this.medicacion.push(new FormControl(''));
+          });
+        }
+        if (epi.medidas_terapeuticas) {
+          epi.medidas_terapeuticas.forEach(() => {
+            this.medidas_terapeuticas.push(new FormControl(''));
+          });
+        }
         this.form.patchValue(epi);
       });
   }

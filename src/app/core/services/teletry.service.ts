@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Medication } from '../models/medication.model';
 import { Teletry } from '../models/teletry.model';
 
 @Injectable({
@@ -19,8 +20,25 @@ export class TeletryService {
   }
 
   getTeletriagesByPatientId(id: string): Observable<Teletry[]> {
-    return this.httpClient.get<any>(
-      `${environment.apiUrl}/encuestas-paciente/${id}`
-    ).pipe(tap(value => console.log(value)));
+    return this.httpClient
+      .get<any>(`${environment.apiUrl}/encuestas-paciente/${id}`)
+      .pipe(tap((value) => console.log(value)));
+  }
+
+  createMedication(medication: Medication): Observable<Medication> {
+    return this.httpClient.post<Medication>(
+      `${environment.apiUrl}/enviar-medication`,
+      medication
+    );
+  }
+
+  getMedicationByTeletryId(id: string): Observable<Medication> {
+    return this.httpClient.get<Medication>(
+      `${environment.apiUrl}/medication-encuesta/${id}`
+    );
+  }
+
+  getTeletriages(): Observable<Teletry[]> {
+    return this.httpClient.get<Teletry[]>(`${environment.apiUrl}/triajes`);
   }
 }

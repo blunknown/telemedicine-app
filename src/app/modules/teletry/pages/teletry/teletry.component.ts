@@ -96,6 +96,7 @@ export class TeletryComponent implements OnInit {
     if (this.form.valid) {
       const teletry: Teletry = this.form.value;
       this.teletryService.createTeletry(teletry).subscribe((teletry) => {
+        console.log(teletry);
         this.form.reset();
         const formArray = this.form.controls[
           'tipo_molestia_miccion'
@@ -105,7 +106,7 @@ export class TeletryComponent implements OnInit {
         this.tiposMiccion.map((tipo) => {
           tipo.checked = false;
         });
-        this._snackBar.open('Teletriaje realizado correctamente', 'Entendido', {
+        this._snackBar.open('Teletriaje realizado correctamente', 'Ok', {
           duration: 3000,
         });
       });

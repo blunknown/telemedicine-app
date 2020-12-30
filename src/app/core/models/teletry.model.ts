@@ -1,4 +1,6 @@
 export interface Teletry {
+  _id?: string;
+  numero?: number;
   temperatura: number;
   glucosa: number;
   frecuencia_arterial: number;
@@ -19,4 +21,9 @@ export interface Teletry {
   otros: string;
   estado?: string;
   recomendacion?: string;
+  created_at?: string;
+  amarillo: number;
+  naranja: number;
+  rojo: number;
+  verde: number;
 }

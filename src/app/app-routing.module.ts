@@ -96,6 +96,15 @@ const routes: Routes = [
             (m) => m.QuestionsModule
           ),
       },
+      {
+        path: 'teletriages',
+        canActivate: [RoleGuard],
+        data: { roles: ['paciente'] },
+        loadChildren: () =>
+          import('./modules/teletriages/teletriages.module').then(
+            (m) => m.TeletriagesModule
+          ),
+      },
     ],
   },
   {

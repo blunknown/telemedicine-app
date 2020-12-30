@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Medicación asignada</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="form" [formGroup]="form">
+    <mat-form-field class="w-100">
+      <mat-label>Medicamentos</mat-label>
+      <input matInput formControlName="medicamentos" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Indicaciones</mat-label>
+      <input matInput formControlName="indicaciones" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pt-0">
+  <button mat-button color="primary" (click)="saveMedication()">Guardar</button>
+  <button mat-button mat-dialog-close color="accent">Cancelar</button>
+</mat-dialog-actions>
