@@ -63,11 +63,6 @@ export class TeletriagesComponent implements OnInit {
   }
 
   selectTeletry(teletry: Teletry) {
-    // if (teletry.molestia_miccion !== 'No') {
-    //   teletry.tipo_molestia_miccion.forEach(() => {
-    //     this.molestiaField.push(new FormControl(''));
-    //   });
-    // }
-    // this.dialog.open(DetailsComponent, { data: teletry, autoFocus: false });
+    this.dialog.open(DetailsComponent, { data: teletry, autoFocus: false });
   }
 }

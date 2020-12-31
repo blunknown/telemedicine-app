@@ -17,39 +17,35 @@ import { TeletryService } from 'src/app/core/services/teletry.service';
 })
 export class DetailsComponent implements OnInit {
   form: FormGroup;
+  registrado = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public teletry: Teletry,
-    private teletryService: TeletryService,
-    private formBuilder: FormBuilder
-  ) {}
-
-  ngOnInit(): void {
+    private formBuilder: FormBuilder,
+    private teletryService: TeletryService
+  ) {
     this.buildForm();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      temperatura: [''],
-      glucosa: [''],
-      frecuencia_arterial: [''],
-      frecuencia_respiratoria: [''],
-      presion_arterial_diastolica: [''],
-      presion_arterial_sistolica: [''],
-      dolor: [''],
-      sangrado_vagina: [''],
-      color_sangrado_vagina: [''],
-      sangrado_herida: [''],
-      color_sangrado_herida: [''],
-      coloracion_herida: [''],
-      color_coloracion_herida: [],
-      molestia_miccion: [''],
-      tipo_molestia_miccion: this.formBuilder.array([]),
-      veces_defeca_dia: [''],
-      textura_heces: [''],
-      otros: [''],
-      estado: [''],
-      recomendacion: [''],
+      medicamentos: '',
+      indicaciones: '',
     });
+  }
+
+  ngOnInit(): void {
+    this.teletryService
+      .getMedicationByTeletryId(this.teletry._id)
+      .subscribe((medication) => {
+        this.registrado = medication && medication[0];
+        if (medication && medication[0]) {
+          const med = {
+            medicamentos: medication[0].medicamentos,
+            indicaciones: medication[0].indicaciones,
+          };
+          this.form.patchValue(med);
+        }
+      });
   }
 }

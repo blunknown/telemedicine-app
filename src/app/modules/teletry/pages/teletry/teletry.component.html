@@ -328,6 +328,29 @@
         <textarea formControlName="otros" matInput></textarea>
       </mat-form-field>
     </div>
+    <div
+      *ngIf="result" class="m-3"
+    >
+      <h2>Resultados:</h2>
+      <div class="d-flex text-center">
+        <div class="mr-1">
+          <div class="verde"></div>
+          {{ result.verde }}
+        </div>
+        <div class="mr-1">
+          <div class="amarillo"></div>
+          {{ result.amarillo }}
+        </div>
+        <div class="mr-1">
+          <div class="naranja"></div>
+          {{ result.naranja }}
+        </div>
+        <div class="mr-1">
+          <div class="rojo"></div>
+          {{ result.rojo }}
+        </div>
+      </div>
+    </div>
     <div class="mx-3 d-flex justify-content-end">
       <button mat-raised-button color="primary" type="submit">
         Enviar teletriaje

@@ -34,10 +34,11 @@ export class MedicationComponent implements OnInit {
     this.teletryService
       .getMedicationByTeletryId(this.teletry._id)
       .subscribe((medication) => {
+        this.registrado = medication && medication[0];
         if (medication && medication[0]) {
           const med = {
-            medicamentos: medication[0].medicamentos[0],
-            indicaciones: medication[0].indicaciones[0],
+            medicamentos: medication[0].medicamentos,
+            indicaciones: medication[0].indicaciones,
           };
           this.form.patchValue(med);
         }

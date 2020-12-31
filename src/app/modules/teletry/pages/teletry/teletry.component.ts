@@ -19,6 +19,7 @@ import { TeletryService } from 'src/app/core/services/teletry.service';
   styleUrls: ['./teletry.component.scss'],
 })
 export class TeletryComponent implements OnInit {
+  result: Teletry;
   @ViewChild('f') myNgForm;
   form: FormGroup;
   tiposMiccion: any[] = [
@@ -71,7 +72,7 @@ export class TeletryComponent implements OnInit {
       tipo_molestia_miccion: this.formBuilder.array([]),
       veces_defeca_dia: ['', [Validators.required]],
       textura_heces: ['', [Validators.required]],
-      otros: ['', [Validators.required]],
+      otros: [''],
     });
   }
 
@@ -96,7 +97,8 @@ export class TeletryComponent implements OnInit {
     if (this.form.valid) {
       const teletry: Teletry = this.form.value;
       this.teletryService.createTeletry(teletry).subscribe((teletry) => {
-        console.log(teletry);
+        this.result = teletry;
+        console.log(this.result);
         this.form.reset();
         const formArray = this.form.controls[
           'tipo_molestia_miccion'
