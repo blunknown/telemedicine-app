@@ -4,6 +4,14 @@
   aut fugiat beatae eaque deserunt libero, cumque dolor nesciunt blanditiis
   aliquam non nostrum rerum. Alias odit assumenda at iure.
 </p>
+<div
+  class="d-flex justify-content-end mb-3"
+  *ngIf="loggedIn.roles[0] === 'doctor'"
+>
+  <button mat-raised-button color="primary" (click)="addAppointment()">
+    Agregar nueva cita
+  </button>
+</div>
 <app-calendar-header
   [(view)]="view"
   [(viewDate)]="viewDate"

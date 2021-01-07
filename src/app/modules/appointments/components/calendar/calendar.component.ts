@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { CalendarEvent, CalendarView } from 'angular-calendar';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarView,
+} from 'angular-calendar';
 import {
   isSameMonth,
   isSameDay,
@@ -13,8 +17,15 @@ import {
   startOfDay,
   endOfDay,
   format,
+  addHours,
 } from 'date-fns';
 import { Observable } from 'rxjs';
+import { Appointment } from 'src/app/core/models/appointment.model';
+import { AppointmentService } from 'src/app/core/services/appointment.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from 'src/app/core/models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { NewAppointmentComponent } from '../new-appointment/new-appointment.component';
 
 const colors: any = {
   red: {
@@ -55,10 +66,43 @@ const getTimezoneOffsetString = (date: Date): string => {
 export class CalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
-  events$: Observable<CalendarEvent<{ film: Film }>[]>;
+  events$: Observable<CalendarEvent<{ appointment: Appointment }>[]>;
+  // events$: Observable<Appointment[]>;
   activeDayIsOpen: boolean = false;
+  loggedIn: User;
+  actions: CalendarEventAction[] = [
+    {
+      label: '<span class="mr-2 editar">Editar</span>',
+      a11yLabel: 'Edit',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.actualizar(event);
+      },
+    },
+    {
+      label: '<span class="eliminar ">Eliminar</span>',
+      a11yLabel: 'Delete',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.eliminar(event);
+      },
+    },
+    // {
+    //   label: '<i class="fas fa-fw fa-trash-alt"></i>',
+    //   a11yLabel: 'Delete',
+    //   onClick: ({ event }: { event: CalendarEvent }): void => {
+    //     this.events = this.events.filter((iEvent) => iEvent !== event);
+    //     this.handleEvent('Deleted', event);
+    //   },
+    // },
+  ];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    public dialog: MatDialog,
+    private http: HttpClient,
+    private authService: AuthService,
+    private appointmentService: AppointmentService
+  ) {
+    this.loggedIn = authService.loggedIn;
+  }
 
   ngOnInit(): void {
     this.fetchEvents();
@@ -77,36 +121,66 @@ export class CalendarComponent implements OnInit {
       day: endOfDay,
     }[this.view];
 
-    const params = new HttpParams()
-      .set(
-        'primary_release_date.gte',
-        format(getStart(this.viewDate), 'yyyy-MM-dd')
-      )
-      .set(
-        'primary_release_date.lte',
-        format(getEnd(this.viewDate), 'yyyy-MM-dd')
-      )
-      .set('api_key', '0ec33936a68018857d727958dca1424f');
+    // const params = new HttpParams()
+    //   .set(
+    //     'primary_release_date.gte',
+    //     format(getStart(this.viewDate), 'yyyy-MM-dd')
+    //   )
+    //   .set(
+    //     'primary_release_date.lte',
+    //     format(getEnd(this.viewDate), 'yyyy-MM-dd')
+    //   )
+    //   .set('api_key', '0ec33936a68018857d727958dca1424f');
 
-    this.events$ = this.http
-      .get('https://api.themoviedb.org/3/discover/movie', { params })
-      .pipe(
-        map(({ results }: { results: Film[] }) => {
-          return results.map((film: Film) => {
-            return {
-              title: film.title,
-              start: new Date(
-                film.release_date + getTimezoneOffsetString(this.viewDate)
-              ),
-              color: colors.yellow,
-              allDay: true,
-              meta: {
-                film,
-              },
-            };
-          });
-        })
-      );
+    this.loggedIn.roles[0] === 'paciente'
+      ? (this.events$ = this.appointmentService.getPatientAppointments().pipe(
+          map((appointments) => {
+            console.log(appointments);
+            return appointments.map((appointment) => {
+              return {
+                title: appointment.razon,
+                start: new Date(appointment.fecha.substring(0, 16)),
+                end: addHours(new Date(appointment.fecha.substring(0, 16)), 1),
+                color: colors.yellow,
+                meta: { appointment },
+              };
+            });
+          })
+        ))
+      : (this.events$ = this.appointmentService.getDoctorAppointments().pipe(
+          map((appointments) => {
+            console.log(appointments);
+            return appointments.map((appointment) => {
+              return {
+                title: appointment.razon,
+                start: new Date(appointment.fecha.substring(0, 16)),
+                end: addHours(new Date(appointment.fecha.substring(0, 16)), 1),
+                color: colors.yellow,
+                actions: this.actions,
+                meta: { appointment },
+              };
+            });
+          })
+        ));
+    // this.events$ = this.http
+    //   .get('https://api.themoviedb.org/3/discover/movie', { params })
+    //   .pipe(
+    //     map(({ results }: { results: Film[] }) => {
+    //       return results.map((film: Film) => {
+    //         return {
+    //           title: film.title,
+    //           start: new Date(
+    //             film.release_date + getTimezoneOffsetString(this.viewDate)
+    //           ),
+    //           end: addHours(new Date(), 2),
+    //           color: colors.yellow,
+    //           meta: {
+    //             film,
+    //           },
+    //         };
+    //       });
+    //     })
+    //   );
   }
 
   dayClicked({
@@ -129,10 +203,54 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventClicked(event: CalendarEvent<{ film: Film }>): void {
-    window.open(
-      `https://www.themoviedb.org/movie/${event.meta.film.id}`,
-      '_blank'
-    );
+  eventClicked(event: CalendarEvent<{ appointment: Appointment }>): void {
+    const detailsAppointment = this.dialog.open(NewAppointmentComponent, {
+      data: { update: false, appointment: event.meta.appointment },
+      autoFocus: false,
+    });
+  }
+
+  actualizar(event: CalendarEvent<{ appointment: Appointment }>): void {
+    const updateComponent = this.dialog.open(NewAppointmentComponent, {
+      data: { update: true, appointment: event.meta.appointment },
+      autoFocus: false,
+    });
+    updateComponent.afterClosed().subscribe((result) => {
+      this.fetchEvents();
+    });
+  }
+
+  eliminar(event: CalendarEvent<{ appointment: Appointment }>): void {
+    console.log('gaaa');
+    this.appointmentService
+      .deleteAppointment(event.meta.appointment._id)
+      .subscribe(() => {
+        console.log('ezz');
+        this.fetchEvents();
+      });
+  }
+
+  addAppointment(): void {
+    const newAppointment = this.dialog.open(NewAppointmentComponent, {
+      autoFocus: false,
+    });
+    newAppointment.afterClosed().subscribe((result) => {
+      this.fetchEvents();
+    });
+    // const event =
+    // this.events = [
+    //   ...this.events,
+    //   {
+    //     title: 'New event',
+    //     start: startOfDay(new Date()),
+    //     end: endOfDay(new Date()),
+    //     color: colors.red,
+    //     draggable: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //   },
+    // ];
   }
 }

@@ -10,18 +10,22 @@ import { CalendarHeaderComponent } from './components/calendar-header/calendar-h
 import { MaterialModule } from 'src/app/material/material.module';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppointmentsComponent,
     CalendarHeaderComponent,
     CalendarComponent,
+    NewAppointmentComponent,
   ],
   imports: [
     CommonModule,
     AppointmentsRoutingModule,
     MaterialModule,
     HttpClientModule,
+    ReactiveFormsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Nueva cita</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="form" [formGroup]="form">
+    <mat-form-field class="w-100">
+      <mat-label>Paciente</mat-label>
+      <mat-select formControlName="paciente" [value]="currentPatient" [disabled]="data">
+        <mat-option *ngFor="let patient of patients" [value]="patient._id">
+          {{ patient.nombres }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field class="w-100" *ngIf="data">
+      <mat-label>Paciente</mat-label>
+      <input
+        matInput
+        type="text"
+        [readonly]="data"
+        formControlName="paciente"
+      />
+    </mat-form-field> -->
+    <mat-form-field class="w-100">
+      <mat-label>Fecha de cita</mat-label>
+      <input
+        matInput
+        type="datetime-local"
+        [readonly]="data && data.updated === false"
+        formControlName="fecha"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Razon de cita</mat-label>
+      <input type="text" matInput [readonly]="data" formControlName="razon" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pt-0">
+  <button mat-button color="primary" *ngIf="!data" (click)="add()">
+    Agregar cita
+  </button>
+  <button
+    mat-button
+    color="primary"
+    (click)="udpate()"
+    *ngIf="data && data.update === true"
+  >
+    Actualizar cita
+  </button>
+  <button mat-button mat-dialog-close color="accent">Cancelar</button>
+</mat-dialog-actions>
