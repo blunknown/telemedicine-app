@@ -1,9 +1,14 @@
-<h2 mat-dialog-title>Nueva cita</h2>
+<h2 mat-dialog-title>Cita</h2>
 <mat-dialog-content class="mat-typography">
   <form class="form" [formGroup]="form">
     <mat-form-field class="w-100">
-      <mat-label>Paciente</mat-label>
-      <mat-select formControlName="paciente" [value]="currentPatient" [disabled]="data">
+      <mat-label *ngIf="authService.loggedIn.roles[0] === 'doctor'"
+        >Paciente</mat-label
+      >
+      <mat-label *ngIf="authService.loggedIn.roles[0] === 'paciente'"
+        >Doctor</mat-label
+      >
+      <mat-select formControlName="paciente">
         <mat-option *ngFor="let patient of patients" [value]="patient._id">
           {{ patient.nombres }}
         </mat-option>

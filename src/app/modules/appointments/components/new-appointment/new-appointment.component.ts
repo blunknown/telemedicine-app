@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Appointment } from 'src/app/core/models/appointment.model';
@@ -7,6 +12,7 @@ import { User } from 'src/app/core/models/user.model';
 import { AppointmentService } from 'src/app/core/services/appointment.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-appointment',
@@ -23,14 +29,16 @@ export class NewAppointmentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private authService: AuthService,
+    public authService: AuthService,
     private appointmentService: AppointmentService,
     private _snackBar: MatSnackBar
   ) {
     this.buildForm();
     if (data) {
       const appointment: Appointment = data.appointment;
-      appointment.fecha = appointment.fecha.substring(0, 16);
+      // console.log(appointment.fecha);
+      // console.log(new Date(appointment.fecha).ge);
+      appointment.fecha = moment(appointment.fecha).format('YYYY-MM-DDTkk:mm');
       this.form.patchValue(appointment);
     }
   }
@@ -41,20 +49,47 @@ export class NewAppointmentComponent implements OnInit {
       razon: ['', Validators.required],
       fecha: ['', Validators.required],
     });
+    if (this.data) {
+      this.form.get('paciente').disable();
+    }
+    // if (this.authService.loggedIn.roles[0] === 'paciente') {
+    //   this.form.addControl(
+    //     'paciente',
+    //     new FormControl(['', Validators.required])
+    //   );
+    // } else {
+    //   this.form.addControl(
+    //     'doctor',
+    //     new FormControl(['', Validators.required])
+    //   );
+    // }
   }
 
   ngOnInit(): void {
     const id = this.authService.loggedIn._id;
-    this.userService.getPatientsByDoctorId(id).subscribe((patients) => {
-      this.patients = patients;
-      if (this.data && this.data.appointment) {
-        this.patients.forEach((patient) => {
-          if (patient._id === this.data.appointment.paciente) {
-            this.currentPatient = patient._id;
+    this.authService.loggedIn.roles[0] === 'doctor'
+      ? this.userService.getPatientsByDoctorId(id).subscribe((patients) => {
+          this.patients = patients;
+          if (this.data && this.data.appointment) {
+            this.patients.forEach((patient) => {
+              if (patient._id === this.data.appointment.paciente) {
+                this.currentPatient = patient._id;
+              }
+            });
           }
+          this.form.get('paciente').setValue(this.currentPatient);
+        })
+      : this.userService.getDoctorsByPatientId(id).subscribe((patients) => {
+          this.patients = patients;
+          if (this.data && this.data.appointment) {
+            this.patients.forEach((patient) => {
+              if (patient._id === this.data.appointment.doctor) {
+                this.currentPatient = this.data.appointment.doctor;
+              }
+            });
+          }
+          this.form.get('paciente').setValue(this.currentPatient);
         });
-      }
-    });
 
     // this.teletryService
     //   .getMedicationByTeletryId(this.teletry._id)
@@ -72,7 +107,10 @@ export class NewAppointmentComponent implements OnInit {
 
   add(): void {
     if (this.form.valid) {
+      console.log('nueva cita');
+      console.log(this.form.value);
       const appointment: Appointment = this.form.value;
+      appointment.fecha = new Date(appointment.fecha).toISOString();
       this.appointmentService.saveAppointment(appointment).subscribe(() => {
         this.dialogRef.close();
         this._snackBar.open('Cita agregada correctamente', 'Ok', {
@@ -85,6 +123,7 @@ export class NewAppointmentComponent implements OnInit {
   udpate(): void {
     if (this.form.valid) {
       const appointment: Appointment = this.form.value;
+      appointment.fecha = new Date(appointment.fecha).toISOString();
       this.appointmentService
         .updateAppointment(this.data.appointment._id, appointment)
         .subscribe(() => {
