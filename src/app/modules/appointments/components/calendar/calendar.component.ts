@@ -139,8 +139,8 @@ export class CalendarComponent implements OnInit {
             return appointments.map((appointment) => {
               return {
                 title: appointment.razon,
-                start: new Date(appointment.fecha.substring(0, 16)),
-                end: addHours(new Date(appointment.fecha.substring(0, 16)), 1),
+                start: new Date(appointment.fecha),
+                end: addHours(new Date(appointment.fecha), 1),
                 color: colors.yellow,
                 meta: { appointment },
               };
