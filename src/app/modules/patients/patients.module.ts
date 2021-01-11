@@ -9,14 +9,22 @@ import { TeletriagesComponent } from './components/teletriages/teletriages.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { EpicrisisComponent } from './components/epicrisis/epicrisis.component';
 import { MedicationComponent } from './components/medication/medication.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
-  declarations: [PatientsComponent, DetailsComponent, TeletriagesComponent, EpicrisisComponent, MedicationComponent],
+  declarations: [
+    PatientsComponent,
+    DetailsComponent,
+    TeletriagesComponent,
+    EpicrisisComponent,
+    MedicationComponent,
+  ],
   imports: [
     CommonModule,
     PatientsRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    ChartsModule,
   ],
 })
 export class PatientsModule {}
