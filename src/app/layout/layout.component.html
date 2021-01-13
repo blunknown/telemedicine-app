@@ -10,20 +10,31 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar class="bg-primary">INEN</mat-toolbar>
-    <div mat-list-icon class="dot mx-auto mb-2 mt-3"></div>
-    <div class="mb-3 text-center font-weight-bold">
-      {{ loggedIn.nombres }} {{ loggedIn.apellidos }}
+    <mat-toolbar class="bg-primary">Menu</mat-toolbar>
+    <div class="my-3 text-center" *ngIf="loggedIn.roles[0] === 'paciente'">
+      <img src="assets/img/user.png" alt="Avatar" class="avatar" />
     </div>
+    <div class="my-3 text-center" *ngIf="loggedIn.roles[0] === 'doctor'">
+      <img src="assets/img/doctor.png" alt="Avatar" class="avatar" />
+    </div>
+
+    <!-- <div class="mb-3 text-center font-weight-bold">
+      {{ loggedIn.nombres }} {{ loggedIn.apellidos }}
+    </div> -->
     <mat-divider></mat-divider>
     <mat-nav-list class="pt-0">
-      <a mat-list-item routerLink="/home">Inicio</a>
-      <a mat-list-item routerLink="/teleconsult">Teleconsulta</a>
-      <a mat-list-item routerLink="/appointments">Citas</a>
+      <a mat-list-item routerLink="/home" routerLinkActive="select">Inicio</a>
+      <a mat-list-item routerLink="/teleconsult" routerLinkActive="select"
+        >Teleconsulta</a
+      >
+      <a mat-list-item routerLink="/appointments" routerLinkActive="select"
+        >Citas</a
+      >
       <a
         *ngIf="loggedIn.roles[0] === 'paciente'"
         mat-list-item
         routerLink="/teletry"
+        routerLinkActive="select"
       >
         Teletriaje</a
       >
@@ -31,6 +42,7 @@
         *ngIf="loggedIn.roles[0] === 'paciente'"
         mat-list-item
         routerLink="/teletriages"
+        routerLinkActive="select"
       >
         Mis Teletriajes</a
       >
@@ -50,19 +62,21 @@
         routerLink="/reports"
         >Reportes</a
       > -->
-      <a mat-list-item routerLink="/chat">Chat</a>
+      <a mat-list-item routerLink="/chat" routerLinkActive="select">Chat</a>
       <!-- <a mat-list-item routerLink="/forum">Foro</a> -->
       <a
         *ngIf="loggedIn.roles[0] === 'paciente'"
         mat-list-item
         routerLink="/questions"
+        routerLinkActive="select"
         >Preguntas</a
       >
       <a
         *ngIf="loggedIn.roles[0] === 'doctor'"
         mat-list-item
         routerLink="/patients"
-        >Pacientes</a
+        routerLinkActive="select"
+        >Mis pacientes</a
       >
     </mat-nav-list>
   </mat-sidenav>
@@ -79,14 +93,12 @@
       </button>
       <span class="mr-auto">Sistema Oncológico de Teleconsulta</span>
       <button mat-button [matMenuTriggerFor]="beforeMenu" style="color: white">
-        <mat-icon class="mr-1">face</mat-icon>{{ loggedIn.nombres }}
+        <mat-icon class="mr-2">account_circle</mat-icon>{{ loggedIn.nombres }}
       </button>
       <mat-menu #beforeMenu="matMenu" xPosition="before">
-        <button mat-menu-item>
-          <mat-icon class="mr-1">person</mat-icon>Mi perfil
-        </button>
+        <!-- <button mat-menu-item><mat-icon>person</mat-icon>Mi cuenta</button> -->
         <button mat-menu-item (click)="logout()">
-          <mat-icon class="mr-1">exit_to_app</mat-icon>Cerrar sesión
+          <mat-icon>exit_to_app</mat-icon>Cerrar sesión
         </button>
       </mat-menu>
     </mat-toolbar>

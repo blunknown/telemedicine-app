@@ -85,18 +85,18 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="loading">
-            <th mat-footer-cell *matFooterCellDef colspan="5">
+          <!-- <ng-container matColumnDef="loading">
+            <th mat-footer-cell *matFooterCellDef colspan="6">
               Cargando datos...
             </th>
-          </ng-container>
+          </ng-container> -->
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          <tr
+          <!-- <tr
             mat-footer-row
             *matFooterRowDef="['loading']"
             [ngClass]="{ hide: dataSource != null }"
-          ></tr>
+          ></tr> -->
           <!-- Row shown when there is no matching data. -->
           <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="5 ">No hay datos disponibles.</td>
@@ -251,28 +251,130 @@
     </mat-step>
     <mat-step label="Graficos estadisticos">
       <!-- <img src="assets/img/estadistica.jpg" alt="Image" class="mb-0" /> -->
-
-      <h2 class="text-center">Teletriajes por resultado</h2>
-      <div style="display: block" class="mb-5">
-        <canvas
-          baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-        >
-        </canvas>
-      </div>
-      <h2 class="text-center">Teletriajes por año y resultado</h2>
-      <div style="display: block">
-        <canvas
-          baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-        >
-        </canvas>
+      <div *ngIf="!loadingCharts">
+        <!-- <div style="display: block">
+          
+        </div> -->
+        <div class="row row-cols-3">
+          <div class="col">
+            <h3 class="text-center font-weight-bold">Temperatura</h3>
+            <div style="display: block" class="mb-5">
+              <canvas
+                baseChart
+                width="400"
+                height="400"
+                [datasets]="lineChartDataTemperatura"
+                [labels]="lineChartLabels"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+              ></canvas>
+            </div>
+          </div>
+          <div class="col">
+            <h3 class="text-center">Glucosa</h3>
+            <div style="display: block" class="mb-5">
+              <canvas
+                baseChart
+                width="400"
+                height="400"
+                [datasets]="lineChartDataGlucosa"
+                [labels]="lineChartLabels"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+              ></canvas>
+            </div>
+          </div>
+          <div class="col">
+            <h3 class="text-center">Frecuencia Arterial</h3>
+            <div style="display: block" class="mb-5">
+              <canvas
+                baseChart
+                width="400"
+                height="400"
+                [datasets]="lineChartDataFrecuenciaArterial"
+                [labels]="lineChartLabels"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+              ></canvas>
+            </div>
+          </div>
+          <div class="col">
+            <h3 class="text-center">Frecuencia Respiratoria</h3>
+            <div style="display: block" class="mb-5">
+              <canvas
+                baseChart
+                width="400"
+                height="400"
+                [datasets]="lineChartDataFrecuenciaRespiratoria"
+                [labels]="lineChartLabels"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+              ></canvas>
+            </div>
+          </div>
+          <div class="col">
+            <h3 class="text-center">Presion Arterial Sistolica</h3>
+            <div style="display: block" class="mb-5">
+              <canvas
+                baseChart
+                width="400"
+                height="400"
+                [datasets]="lineChartDataPresionArterialSistolica"
+                [labels]="lineChartLabels"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+              ></canvas>
+            </div>
+          </div>
+          <div class="col">
+            <h3 class="text-center">Presion arterial Diastolica</h3>
+            <div style="display: block" class="mb-5">
+              <canvas
+                baseChart
+                width="400"
+                height="400"
+                [datasets]="lineChartDataPresionArterialDiastolica"
+                [labels]="lineChartLabels"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+              ></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="row row-cols-2">
+          <div class="col">
+            <h3 class="text-center">Teletriajes por resultado</h3>
+            <div style="display: block" class="">
+              <canvas
+                baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+              >
+              </canvas>
+            </div>
+          </div>
+          <div class="col">
+            <h3 class="text-center">Teletriajes por año y resultado</h3>
+            <div style="display: block">
+              <canvas
+                baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

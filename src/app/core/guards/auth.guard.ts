@@ -30,8 +30,10 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (this.authService.isLoggedIn()) {
+      console.log('xddd');
       return this.authService.getLoggedIn().pipe(
         map((user) => {
+          console.log('ggsaurio');
           this.authService.loggedIn = user;
           if (!this.socketService.isConnected()) {
             this.socketService.connect(user);

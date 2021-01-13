@@ -10,8 +10,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label, SingleDataSet } from 'ng2-charts';
+import { ChartData, ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { Color, Label, SingleDataSet } from 'ng2-charts';
 import { Teletry } from 'src/app/core/models/teletry.model';
 import { User } from 'src/app/core/models/user.model';
 import { TeletryService } from 'src/app/core/services/teletry.service';
@@ -23,6 +23,7 @@ import { MedicationComponent } from '../medication/medication.component';
   styleUrls: ['./teletriages.component.scss'],
 })
 export class TeletriagesComponent implements OnInit {
+  loadingCharts = true;
   isLinear = false;
   displayedColumns: string[] = [
     'numero',
@@ -58,7 +59,6 @@ export class TeletriagesComponent implements OnInit {
   public doughnutChartType: ChartType = 'doughnut';
 
   public barChartOptions: ChartOptions = {
-    responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
     scales: { xAxes: [{}], yAxes: [{}] },
     plugins: {
@@ -68,6 +68,7 @@ export class TeletriagesComponent implements OnInit {
       },
     },
   };
+  public lineChartLabels: Label[] = [];
   public barChartLabels: Label[] = ['2018', '2019', '2020', '2021'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
@@ -76,6 +77,56 @@ export class TeletriagesComponent implements OnInit {
     { data: [0, 0, 0, 0], label: 'Regular estado' },
     { data: [0, 0, 0, 0], label: 'Regular a estacionario' },
     { data: [0, 0, 0, 0], label: 'Mal estado' },
+  ];
+  public lineChartDataTemperatura: ChartDataSets[] = [
+    {
+      data: [],
+      label: 'Temperatura',
+    },
+  ];
+  public lineChartDataGlucosa: ChartDataSets[] = [
+    {
+      data: [],
+      label: 'Glucosa',
+    },
+  ];
+  public lineChartDataFrecuenciaArterial: ChartDataSets[] = [
+    {
+      data: [],
+      label: 'Frecuencia Arterial',
+    },
+  ];
+  public lineChartDataFrecuenciaRespiratoria: ChartDataSets[] = [
+    {
+      data: [],
+      label: 'Frecuencia Respiratoria',
+    },
+  ];
+  public lineChartDataPresionArterialDiastolica: ChartDataSets[] = [
+    {
+      data: [],
+      label: 'Presion Arterial Diastolica',
+    },
+  ];
+  public lineChartDataPresionArterialSistolica: ChartDataSets[] = [
+    {
+      data: [],
+      label: 'Presion Arterial Sistolica',
+    },
+  ];
+
+  public lineChartLegend = false;
+  public lineChartType: ChartType = 'line';
+  public lineChartColors: Color[] = [
+    {
+      // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+    },
   ];
 
   constructor(
@@ -92,9 +143,25 @@ export class TeletriagesComponent implements OnInit {
     let regularEstado = [0, 0, 0, 0];
     let regularEstacionario = [0, 0, 0, 0];
     let malEstado = [0, 0, 0, 0];
+    let index = this.teletriages.length;
     this.teletriages.forEach((teletry) => {
       const year = teletry.created_at.substring(6, 10);
-      console.log(year);
+      this.lineChartLabels.unshift(index.toString());
+      this.lineChartDataTemperatura[0].data.unshift(teletry.temperatura);
+      this.lineChartDataGlucosa[0].data.unshift(teletry.glucosa);
+      this.lineChartDataFrecuenciaArterial[0].data.unshift(
+        teletry.frecuencia_arterial
+      );
+      this.lineChartDataFrecuenciaRespiratoria[0].data.unshift(
+        teletry.frecuencia_respiratoria
+      );
+      this.lineChartDataPresionArterialDiastolica[0].data.unshift(
+        teletry.presion_arterial_diastolica
+      );
+      this.lineChartDataPresionArterialSistolica[0].data.unshift(
+        teletry.presion_arterial_sistolica
+      );
+      index--;
       switch (teletry.estado) {
         case 'mejorado':
           this.mejorado++;
@@ -188,6 +255,7 @@ export class TeletriagesComponent implements OnInit {
     this.barChartData[1].data = regularEstado;
     this.barChartData[2].data = regularEstacionario;
     this.barChartData[3].data = malEstado;
+    this.loadingCharts = false;
   }
 
   buildForm() {

@@ -1,21 +1,41 @@
 <h1>Chat</h1>
-<p>
-  Lorem ipsum dolor sit, amet consectetur adipisicing elit. A tempora nostrum
-  error dolore sequi pariatur, eligendi voluptatem enim et suscipit. Repellendus
-  sint quam, similique quos laboriosam hic maiores porro corporis.
+<p *ngIf="loggedIn.roles[0] === 'doctor'">
+  A continuación podrá visualizar los pacientes que tiene a cargo a quienes les
+  puede enviar mensajes.
+</p>
+<p *ngIf="loggedIn.roles[0] === 'paciente'">
+  A continuación podrá visualizar sus doctores asignados a quienes les puede
+  enviar mensajes.
 </p>
 <div class="row">
   <div class="col-md-4">
-    <mat-card style="height: 394.56px">
+    <mat-card style="height: 394.56px" class="list">
       <mat-progress-bar
         *ngIf="isLoadingUsers"
         mode="indeterminate"
       ></mat-progress-bar>
       <mat-selection-list class="pt-0" [multiple]="false">
         <mat-list-option *ngFor="let user of users" (click)="selectUser(user)">
-          <div mat-list-icon class="dot"></div>
+          <!-- <div mat-line>{{ user.nombres }}</div> -->
+          <!-- <div class="d-flex align-items-center"> -->
+          <img
+            *ngIf="loggedIn.roles[0] === 'doctor'"
+            src="assets/img/user.png"
+            alt="Avatar"
+            class="avatar"
+            mat-list-icon
+          />
+          <img
+            *ngIf="loggedIn.roles[0] === 'paciente'"
+            src="assets/img/doctor.png"
+            alt="Avatar"
+            class="avatar"
+            mat-list-icon
+          />
+          <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
           <div mat-line>{{ user.nombres }}</div>
-          <div mat-line>{{ user.telefono }}</div>
+          <!-- <div mat-line>{{ user.telefono }}</div> -->
+          <!-- </div> -->
         </mat-list-option>
       </mat-selection-list>
       <div class="users-loading-shade" *ngIf="isLoadingMessages"></div>
@@ -24,7 +44,20 @@
   <div class="col-md-8">
     <mat-card *ngIf="selectedUser">
       <mat-card-header class="mb-2">
-        <div mat-card-avatar class="header-image"></div>
+        <img
+          *ngIf="loggedIn.roles[0] === 'doctor'"
+          src="assets/img/user.png"
+          alt="Avatar"
+          class="avatar-chat"
+          mat-card-avatar
+        />
+        <img
+          *ngIf="loggedIn.roles[0] === 'paciente'"
+          src="assets/img/doctor.png"
+          alt="Avatar"
+          class="avatar-chat"
+          mat-card-avatar
+        />
         <mat-card-title>{{
           selectedUser.nombres + " " + selectedUser.apellidos
         }}</mat-card-title>

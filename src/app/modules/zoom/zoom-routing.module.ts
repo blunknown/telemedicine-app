@@ -1,0 +1,16 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ZoomComponent } from './pages/zoom/zoom.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ZoomComponent,
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class ZoomRoutingModule {}
