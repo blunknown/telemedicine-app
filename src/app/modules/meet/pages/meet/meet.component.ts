@@ -29,7 +29,7 @@ export class MeetComponent implements OnInit, AfterViewInit {
   //  meetingNumber = '2357323763';
   meetingNumber = '';
   role: number;
-  leaveUrl = 'http://localhost:4200/meet';
+  leaveUrl = 'https://devnknown1698.github.io/telemedicine-front/meet';
   userName = '';
   userEmail = '';
   passWord = '';
