@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3700/api',
-  socketUrl: 'http://localhost:3700',
-  baseUrl: 'http://localhost:3700',
-  // apiUrl: 'https://sistema-oncologico.herokuapp.com/api',
-  // socketUrl: 'https://sistema-oncologico.herokuapp.com',
-  // baseUrl: 'https://sistema-oncologico.herokuapp.com',
+  // apiUrl: 'http://localhost:3700/api',
+  // socketUrl: 'http://localhost:3700',
+  // baseUrl: 'http://localhost:3700',
+  apiUrl: 'https://sistema-oncologico.herokuapp.com/api',
+  socketUrl: 'https://sistema-oncologico.herokuapp.com',
+  baseUrl: 'https://sistema-oncologico.herokuapp.com',
 };
 
 /*

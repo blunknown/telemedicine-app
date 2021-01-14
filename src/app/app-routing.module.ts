@@ -20,18 +20,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/home/home.module').then((m) => m.HomeModule),
       },
-      {
-        path: 'teleconsult',
-        loadChildren: () =>
-          import('./modules/teleconsult/teleconsult.module').then(
-            (m) => m.TeleconsultModule
-          ),
-      },
       // {
-      //   path: 'meet',
+      //   path: 'teleconsult',
       //   loadChildren: () =>
-      //     import('./modules/meet/meet.module').then((m) => m.MeetModule),
+      //     import('./modules/teleconsult/teleconsult.module').then(
+      //       (m) => m.TeleconsultModule
+      //     ),
       // },
+      {
+        path: 'meet',
+        loadChildren: () =>
+          import('./modules/meet/meet.module').then((m) => m.MeetModule),
+      },
       {
         path: 'appointments',
         loadChildren: () =>
@@ -117,11 +117,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/login/login.module').then((m) => m.LoginModule),
   },
-  // {
-  //   path: 'zoom',
-  //   loadChildren: () =>
-  //     import('./modules/zoom/zoom.module').then((m) => m.ZoomModule),
-  // },
+  {
+    path: 'zoom',
+    loadChildren: () =>
+      import('./modules/zoom/zoom.module').then((m) => m.ZoomModule),
+  },
   {
     path: 'forbidden',
     loadChildren: () =>

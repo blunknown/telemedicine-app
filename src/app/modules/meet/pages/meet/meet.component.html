@@ -1,8 +1,89 @@
-<h1>Zoom WebSDK Sample Angular</h1>
-<!-- <button (click)="getSignature()">Join Meeting</button> -->
+<!-- <h1>Zoom WebSDK Sample Angular</h1>
+<button (click)="getSignature()">Join Meeting</button>  -->
 
 <!-- <main>
-  <div id="zmmtg-root"> -->
-    <!-- <div class="root-inner"></div> -->
-  <!-- </div>
+  <div id="zmmtg-root">
+    <div class="root-inner"></div>
+  </div>
 </main> -->
+<h1>Teleconsulta</h1>
+<p *ngIf="loggedIn.roles[0] === 'doctor'">
+  Realice videollamadas con sus pacientes a cargo. Primero debe crear una
+  reunión y luego unirse a ella con las credenciales otorgadas.
+</p>
+<p *ngIf="loggedIn.roles[0] === 'paciente'">
+  Realice videollamadas con sus doctores asignados. Debe ingresar las
+  credenciales de la reunión otorgadas por su doctor
+</p>
+
+<div class="row row-cols-2">
+  <div class="col">
+    <form [formGroup]="formJoin" (ngSubmit)="getSignature($event)">
+      <mat-card>
+        <h2>Unirse a una reunión</h2>
+        <mat-card-content>
+          <mat-form-field class="w-100">
+            <mat-label>Código</mat-label>
+            <input
+              formControlName="id"
+              autocomplete="off"
+              matInput
+              placeholder="Ex. 2382378237828"
+            />
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input
+              type="password"
+              formControlName="password"
+              autocomplete="off"
+              matInput
+            />
+          </mat-form-field>
+          <div class="text-center">
+            <button
+              type="submit"
+              mat-flat-button
+              color="primary"
+              [disabled]="formJoin.invalid || isLoadingMeet"
+            >
+              Unirse a la reunión
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+  <div class="col" *ngIf="loggedIn.roles[0] === 'doctor'">
+    <form [formGroup]="form" (ngSubmit)="createMeeting($event)">
+      <mat-card>
+        <h2>Crear una reunión</h2>
+        <mat-card-content>
+          <mat-form-field class="w-100">
+            <mat-label>Nombre de la reunión</mat-label>
+            <input
+              formControlName="topic"
+              autocomplete="off"
+              matInput
+              placeholder="Ex. Reunion nueva"
+            />
+          </mat-form-field>
+          <div class="text-center">
+            <button
+              type="submit"
+              mat-flat-button
+              color="primary"
+              [disabled]="form.invalid || isLoading"
+            >
+              Crear reunión
+            </button>
+          </div>
+          <div *ngIf="idMeet && passwordMeet" class="mt-2">
+            <h4>Codigo de reunion: {{ idMeet }}</h4>
+            <h4>Contraseña de la reunion: {{ passwordMeet }}</h4>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>
