@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageRequest } from 'src/app/core/interfaces/message-request.interface';
@@ -24,6 +25,7 @@ export class ChatComponent implements OnInit {
   isLoadingUsers = false;
   isLoadingMessages = false;
   imageBase64: string;
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +51,9 @@ export class ChatComponent implements OnInit {
     });
     this.socketService.listen('sendMessage').subscribe((message: Message) => {
       this.messages = [...this.messages, message];
+      setTimeout(() => {
+        this.viewport.scrollToIndex(this.messages.length);
+      }, 0);
     });
   }
 
@@ -68,6 +73,9 @@ export class ChatComponent implements OnInit {
     this.messageService.getMessages(userId).subscribe((messageResponse) => {
       this.messages = messageResponse.messages;
       this.isLoadingMessages = false;
+      setTimeout(() => {
+        this.viewport.scrollToIndex(this.messages.length);
+      }, 0);
     });
   }
 
