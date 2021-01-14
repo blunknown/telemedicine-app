@@ -14,7 +14,7 @@
         *ngIf="isLoadingUsers"
         mode="indeterminate"
       ></mat-progress-bar>
-      <mat-selection-list class="pt-0" [multiple]="false">
+      <mat-selection-list #gg class="pt-0" [multiple]="false">
         <mat-list-option *ngFor="let user of users" (click)="selectUser(user)">
           <!-- <div mat-line>{{ user.nombres }}</div> -->
           <!-- <div class="d-flex align-items-center"> -->
@@ -38,7 +38,7 @@
           <!-- </div> -->
         </mat-list-option>
       </mat-selection-list>
-      <div class="users-loading-shade" *ngIf="isLoadingMessages"></div>
+      <div class="users-loading-shade" *ngIf="isLoadingUsers"></div>
     </mat-card>
   </div>
   <div class="col-md-8">

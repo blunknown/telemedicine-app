@@ -2,6 +2,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectionList } from '@angular/material/list';
 import { MessageRequest } from 'src/app/core/interfaces/message-request.interface';
 import { Message } from 'src/app/core/models/message.model';
 import { User } from 'src/app/core/models/user.model';
@@ -26,6 +27,8 @@ export class ChatComponent implements OnInit {
   isLoadingMessages = false;
   imageBase64: string;
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+  @ViewChild('gg') gg: MatSelectionList;
+  notification = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,12 +51,18 @@ export class ChatComponent implements OnInit {
     users$.subscribe((users) => {
       this.users = users;
       this.isLoadingUsers = false;
+      // this.viewport.scrolledIndexChange.subscribe((ez) => console.log(ez));
     });
     this.socketService.listen('sendMessage').subscribe((message: Message) => {
       this.messages = [...this.messages, message];
+      if (this.notification) {
+        const audio = new Audio('assets/notification.mp3');
+        audio.play();
+      }
       setTimeout(() => {
         this.viewport.scrollToIndex(this.messages.length);
       }, 0);
+      this.notification = true;
     });
   }
 
@@ -88,6 +97,7 @@ export class ChatComponent implements OnInit {
         receiver: _id,
         texto: message,
       };
+      this.notification = false;
       this.socketService.emit('sendMessage', messageRequest);
       this.form.patchValue({ message: '' });
     }
