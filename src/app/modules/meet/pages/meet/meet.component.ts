@@ -15,7 +15,7 @@ import { User } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ZoomService } from 'src/app/core/services/zoom.service';
 
-ZoomMtg.setZoomJSLib('node_modules/@zoomus/websdk/dist/lib', '/av');
+ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
 
 @Component({
   selector: 'app-meet',
