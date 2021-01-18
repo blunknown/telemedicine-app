@@ -1,0 +1,146 @@
+<h2 mat-dialog-title>Información completa</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="form" [formGroup]="form">
+    <table class="w-100" cellspacing="0">
+      <tr>
+        <td style="padding-right: 8px">
+          <mat-form-field class="w-100">
+            <mat-label>Temperatura</mat-label>
+            <input matInput readonly formControlName="temperatura" />
+          </mat-form-field>
+        </td>
+        <td style="padding-right: 8px">
+          <mat-form-field class="w-100">
+            <mat-label>Glucosa</mat-label>
+            <input matInput readonly formControlName="glucosa" />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Frecuencia arterial</mat-label>
+            <input matInput readonly formControlName="frecuencia_arterial" />
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-right: 8px">
+          <mat-form-field class="w-100">
+            <mat-label>Frecuencia respiratoria</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="frecuencia_respiratoria"
+            />
+          </mat-form-field>
+        </td>
+        <td style="padding-right: 8px">
+          <mat-form-field class="w-100">
+            <mat-label>Presion arterial diastólica</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="presion_arterial_diastolica"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="w-100">
+            <mat-label>Presion arterial sistolica</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="presion_arterial_sistolica"
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <mat-form-field class="w-100">
+      <mat-label>Escala de dolor del 0 al 10</mat-label>
+      <input matInput readonly formControlName="dolor" />
+    </mat-form-field>
+    <!-- <label>¿Tiene usted secreción o flujo por vagina?</label>
+        <mat-form-field class="w-100">
+          <input matInput readonly formControlName="sangrado_vagina" />
+        </mat-form-field> -->
+    <mat-form-field class="w-100" *ngIf="color_sangrado_vagina">
+      <mat-label>Color de secreción o flujo por vagina</mat-label>
+      <input matInput readonly formControlName="color_sangrado_vagina" />
+    </mat-form-field>
+    <!-- <label
+          >¿Tiene usted secreción por la herida operatoria abdominal?</label
+        >
+        <mat-form-field class="w-100">
+          <input matInput readonly formControlName="sangrado_herida" />
+        </mat-form-field> -->
+    <mat-form-field class="w-100" *ngIf="color_sangrado_herida">
+      <mat-label
+        >Color de secrecion por la herida operatoria abdominal</mat-label
+      >
+      <input matInput readonly formControlName="color_sangrado_herida" />
+    </mat-form-field>
+    <!-- <label
+          >¿Nota usted alguna coloración alrededor de su herida operatoria
+          abdominal?</label
+        >
+        <mat-form-field class="w-100">
+          <input matInput readonly formControlName="coloracion_herida" />
+        </mat-form-field> -->
+    <mat-form-field class="w-100" *ngIf="color_coloracion_herida">
+      <mat-label
+        >Coloracion alrededor de la herida operatoria abdominal</mat-label
+      >
+      <input matInput readonly formControlName="color_coloracion_herida" />
+    </mat-form-field>
+    <!-- <label>Al momento de miccionar. ¿Tiene usted alguna molestia?</label>
+        <mat-form-field class="w-100">
+          <input matInput readonly formControlName="molestia_miccion" />
+        </mat-form-field>
+    <label>Molestias al momento de miccionar</label> -->
+    <div *ngIf="tipo_molestia_miccion">
+      <mat-form-field
+        class="w-100"
+        formArrayName="tipo_molestia_miccion"
+        *ngFor="let med of tipo_molestia_miccion.controls; let i = index"
+      >
+        <mat-label>Molestia micción {{ i + 1 }}</mat-label>
+        <input matInput readonly [formControlName]="i" />
+      </mat-form-field>
+    </div>
+    <!-- <mat-form-field class="w-100" *ngIf="molestiaField.controls.length === 0">
+      <input matInput readonly value="No presenta ninguna molestia" />
+    </mat-form-field> -->
+    <mat-form-field class="w-100">
+      <mat-label>Numero de veces que defeca al dia</mat-label>
+      <input matInput readonly formControlName="veces_defeca_dia" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Textura de las heces</mat-label>
+      <input matInput readonly formControlName="textura_heces" />
+    </mat-form-field>
+    <mat-form-field class="w-100" *ngIf="otros">
+      <mat-label>Otras molestias</mat-label>
+      <input matInput readonly formControlName="otros" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Estado</mat-label>
+      <input matInput readonly formControlName="estado" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Recomendacion</mat-label>
+      <input matInput readonly formControlName="recomendacion" />
+    </mat-form-field>
+  </form>
+  <!-- <form class="form" [formGroup]="form">
+    <div *ngFor="let form_elem of form.">
+      <mat-form-field class="w-100" *ngFor="let form_elem of form.controls">
+        <mat-label>DNI</mat-label>
+        <input matInput readonly formControlName="dni" />
+      </mat-form-field>
+      <p>chupapinga</p>
+    </div>
+  </form> -->
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pt-0">
+  <button mat-button mat-dialog-close color="primary">Cancelar</button>
+</mat-dialog-actions>

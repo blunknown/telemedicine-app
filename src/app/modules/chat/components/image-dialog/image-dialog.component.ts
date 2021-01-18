@@ -12,6 +12,7 @@ export class ImageDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public image: string) {
     this.imagePath = `${environment.baseUrl}/${image}`;
+    console.log(this.imagePath);
   }
 
   ngOnInit(): void {}

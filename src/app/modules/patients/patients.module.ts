@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EpicrisisComponent } from './components/epicrisis/epicrisis.component';
 import { MedicationComponent } from './components/medication/medication.component';
 import { ChartsModule } from 'ng2-charts';
+import { DetailsTeletriageComponent } from './components/details-teletriage/details-teletriage.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ChartsModule } from 'ng2-charts';
     TeletriagesComponent,
     EpicrisisComponent,
     MedicationComponent,
+    DetailsTeletriageComponent,
   ],
   imports: [
     CommonModule,

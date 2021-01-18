@@ -58,11 +58,11 @@ export class ChatComponent implements OnInit {
       if (this.notification) {
         const audio = new Audio('assets/notification.mp3');
         audio.play();
+        this.notification = true;
       }
       setTimeout(() => {
         this.viewport.scrollToIndex(this.messages.length);
       }, 0);
-      this.notification = true;
     });
   }
 

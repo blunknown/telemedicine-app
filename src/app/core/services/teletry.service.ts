@@ -39,6 +39,8 @@ export class TeletryService {
   }
 
   getTeletriages(): Observable<Teletry[]> {
-    return this.httpClient.get<Teletry[]>(`${environment.apiUrl}/triajes`);
+    return this.httpClient
+      .get<Teletry[]>(`${environment.apiUrl}/triajes`)
+      .pipe(tap((value) => console.log(value)));
   }
 }

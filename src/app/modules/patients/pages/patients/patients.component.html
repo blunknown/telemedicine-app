@@ -1,6 +1,7 @@
 <h1>Pacientes</h1>
 <p>
-  Aquí puede visualizar a sus pacientes y llevar un monitoreo de la evolución de su estado de salud.
+  Aquí puede visualizar a sus pacientes y llevar un monitoreo de la evolución de
+  su estado de salud.
 </p>
 <mat-form-field>
   <mat-label>Buscar por nombres, apellidos o DNI</mat-label>
@@ -36,9 +37,7 @@
     </ng-container>
     <!-- DNI Column -->
     <ng-container matColumnDef="ur">
-      <th mat-header-cell *matHeaderCellDef>
-        Ultima recomendación
-      </th>
+      <th mat-header-cell *matHeaderCellDef>Ultima recomendación</th>
       <td mat-cell *matCellDef="let element">{{ element.ur }}</td>
     </ng-container>
     <!-- Acciones Column -->
@@ -47,16 +46,28 @@
       <td mat-cell *matCellDef="let element">
         <button
           mat-mini-fab
+          matTooltip="Detalle"
           color="primary"
           class="mr-2"
           (click)="openDetails(element)"
         >
           <mat-icon>description</mat-icon>
         </button>
-        <button mat-mini-fab color="accent" class="mr-2" (click)="openTeletriages(element)">
+        <button
+          mat-mini-fab
+          color="accent"
+          class="mr-2"
+          (click)="openTeletriages(element)"
+          matTooltip="Teletriajes"
+        >
           <mat-icon>table_view</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" (click)="openEpicrisis(element)">
+        <button
+          mat-mini-fab
+          color="warn"
+          (click)="openEpicrisis(element)"
+          matTooltip="Epicrisis"
+        >
           <mat-icon>description</mat-icon>
         </button>
       </td>

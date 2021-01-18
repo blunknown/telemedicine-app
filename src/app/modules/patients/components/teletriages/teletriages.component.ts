@@ -15,6 +15,7 @@ import { Color, Label, SingleDataSet } from 'ng2-charts';
 import { Teletry } from 'src/app/core/models/teletry.model';
 import { User } from 'src/app/core/models/user.model';
 import { TeletryService } from 'src/app/core/services/teletry.service';
+import { DetailsTeletriageComponent } from '../details-teletriage/details-teletriage.component';
 import { MedicationComponent } from '../medication/medication.component';
 
 @Component({
@@ -318,16 +319,23 @@ export class TeletriagesComponent implements OnInit {
     }
   }
 
-  selectTeletry(teletry: Teletry) {
-    this.currentTeletry = teletry;
-    console.log(teletry);
-    if (teletry.molestia_miccion !== 'No') {
-      teletry.tipo_molestia_miccion.forEach(() => {
-        this.molestiaField.push(new FormControl(''));
-      });
-    }
-    console.log(teletry);
-    this.form.patchValue(teletry);
+  // selectTeletry(teletry: Teletry) {
+  //   this.currentTeletry = teletry;
+  //   console.log(teletry);
+  //   if (teletry.molestia_miccion !== 'No') {
+  //     teletry.tipo_molestia_miccion.forEach(() => {
+  //       this.molestiaField.push(new FormControl(''));
+  //     });
+  //   }
+  //   console.log(teletry);
+  //   this.form.patchValue(teletry);
+  // }
+
+  selectTeletry(teletry: Teletry): void {
+    this.dialog.open(DetailsTeletriageComponent, {
+      data: teletry,
+      autoFocus: false,
+    });
   }
 
   get molestiaField() {

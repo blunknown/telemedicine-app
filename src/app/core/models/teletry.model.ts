@@ -26,4 +26,17 @@ export interface Teletry {
   naranja: number;
   rojo: number;
   verde: number;
+  colorTemperatura: string;
+  colorGlucosa: string;
+  colorFrecuenciaArterial: string;
+  colorFrecuenciaRespiratoria: string;
+  colorPresionArterialDiastolica: string;
+  colorPresionArterialSistolica: string;
+  colorDolor: string;
+  colorSangradoVagina: string;
+  colorSangradoHerida: string;
+  colorColoracionHerida: string;
+  colorTipoMolestiaMiccion: string;
+  colorVecesDefecaDia: string;
+  colorTexturaHeces: string;
 }
