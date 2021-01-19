@@ -88,4 +88,17 @@ export class DetailsTeletriageComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  getColor(color: string) {
+    switch (color) {
+      case 'rojo':
+        return 'rojo';
+      case 'verde':
+        return 'verde';
+      case 'naranja':
+        return 'naranja';
+      default:
+        return 'amarillo';
+    }
+  }
 }

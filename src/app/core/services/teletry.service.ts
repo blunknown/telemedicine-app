@@ -21,7 +21,7 @@ export class TeletryService {
 
   getTeletriagesByPatientId(id: string): Observable<Teletry[]> {
     return this.httpClient
-      .get<any>(`${environment.apiUrl}/encuestas-paciente/${id}`)
+      .get<Teletry[]>(`${environment.apiUrl}/encuestas-paciente/${id}`)
       .pipe(tap((value) => console.log(value)));
   }
 
