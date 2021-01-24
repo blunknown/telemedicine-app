@@ -1,7 +1,12 @@
 <h2 mat-dialog-title>Teletriajes del paciente</h2>
 <mat-dialog-content class="mat-typography">
-  <mat-horizontal-stepper [linear]="isLinear" #stepper class="mat-horizontal-content-container">
+  <mat-horizontal-stepper
+    [linear]="isLinear"
+    #stepper
+    class="mat-horizontal-content-container"
+  >
     <mat-step label="Teletriajes">
+      
       <mat-form-field>
         <mat-label>Buscar por N°, fecha, estado o recomendación</mat-label>
         <input
@@ -109,6 +114,27 @@
           [pageSize]="5"
         ></mat-paginator>
       </div>
+      <mat-card class="example-card mt-4">
+        <h2 mat-card-title>Leyenda</h2>
+        <mat-card-content>
+          <div class="d-flex justify-content-start mb-2">
+            <div class="verde mr-2"></div>
+            <div>Buen estado</div>
+          </div>
+          <div class="d-flex justify-content-start mb-2">
+            <div class="amarillo mr-2"></div>
+            <div>Estado regular</div>
+          </div>
+          <div class="d-flex justify-content-start mb-2">
+            <div class="naranja mr-2"></div>
+            <div>Estado semi alarmante</div>
+          </div>
+          <div class="d-flex justify-content-start">
+            <div class="rojo mr-2"></div>
+            <div>Estado alarmante</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </mat-step>
     <mat-step label="Graficos estadisticos">
       <!-- <img src="assets/img/estadistica.jpg" alt="Image" class="mb-0" /> -->
