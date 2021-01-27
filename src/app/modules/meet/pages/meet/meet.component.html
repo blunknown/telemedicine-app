@@ -17,7 +17,7 @@
 </p>
 
 <div class="row row-cols-2">
-  <div class="col">
+  <div class="col mb-4">
     <form [formGroup]="formJoin" (ngSubmit)="getSignature($event)">
       <mat-card>
         <h2>Unirse a una reunión</h2>
@@ -54,7 +54,7 @@
       </mat-card>
     </form>
   </div>
-  <div class="col" *ngIf="loggedIn.roles[0] === 'doctor'">
+  <div class="col mb-4" *ngIf="loggedIn.roles[0] === 'doctor'">
     <form [formGroup]="form" (ngSubmit)="createMeeting($event)">
       <mat-card>
         <h2>Crear una reunión</h2>
@@ -78,12 +78,17 @@
               Crear reunión
             </button>
           </div>
-          <div *ngIf="idMeet && passwordMeet" class="mt-2">
-            <h4>Codigo de reunion: {{ idMeet }}</h4>
-            <h4>Contraseña de la reunion: {{ passwordMeet }}</h4>
-          </div>
         </mat-card-content>
       </mat-card>
     </form>
+  </div>
+  <div class="col mb-4" *ngIf="idMeet && passwordMeet">
+    <mat-card>
+      <h2>Detalles de la reunión</h2>
+      <mat-card-content>
+          <h4>Codigo de reunion = {{ idMeet }}</h4>
+          <h4>Contraseña de la reunion = {{ passwordMeet }}</h4>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

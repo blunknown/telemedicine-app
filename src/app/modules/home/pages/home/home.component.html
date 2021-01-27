@@ -1,9 +1,4 @@
-<h1>Información de Teleconsulta</h1>
-<p>
-  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam quam beatae
-  sapiente quis debitis! Consequuntur labore impedit doloremque. Ipsum neque
-  quod veniam, alias fuga autem architecto hic labore commodi repellat!
-</p>
+<!-- <h1>Bienvenido, {{ user.nombres + " " + user.apellidos }} !!!</h1> -->
 <img
   *ngIf="user.roles[0] === 'doctor'"
   src="assets/img/doctor_wallpaper.png"
@@ -16,18 +11,52 @@
   alt="wallpaper img"
   class="wallpaper-img"
 />
-<!-- <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
-  <div *ngFor="let _ of [1, 2, 3, 4, 5, 6]" class="col mb-4">
+<div class="text-center mt-4">
+  <h1>Bienvenido, {{ user.nombres + " " + user.apellidos }}</h1>
+  <p>
+    A continuación usted podra ver algunas funcionalidades del Sistema
+    Oncológico de Teleconsulta
+  </p>
+</div>
+
+<!-- <h2>Algunas funcionalidades del sistema</h2> -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-4">
+  <div class="col mb-4">
+    <img src="assets/img/teleconsult.jpg" alt="Image" class="mw-100" />
+  </div>
+  <div class="col mb-4">
+    <img src="assets/img/user_wallpaper.png" alt="Image" class="mw-100" />
+  </div>
+  <div class="col mb-4">
+    <img src="assets/img/doctor_wallpaper.png" alt="Image" class="mw-100" />
+  </div>
+  <div class="col">
+    <img src="assets/img/home_1.png" alt="Image" class="mw-100" />
+  </div>
+  <div class="col">
+    <img src="assets/img/home_3.jpg" alt="Image" class="mw-100" />
+  </div>
+  <div class="col">
+    <img src="assets/img/home_4.png" alt="Image" class="mw-100" />
+  </div>
+  <!-- <div class="col mb-4">
     <mat-card>
-      <img mat-card-image src="assets/img/teleconsult.jpg" alt="Image" />
-      <mat-card-content>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae sit
-          magnam, dolor nesciunt pariatur expedita molestias dolores ex
-          repudiandae ducimus, reprehenderit ea ratione, repellat in deserunt
-          odit nobis! Eum, repudiandae?
-        </p>
-      </mat-card-content>
+      <img mat-card-image src="assets/img/user_wallpaper.png" alt="Image" />
     </mat-card>
   </div>
-</div> -->
+  <div class="col mb-4">
+    <mat-card>
+      <img mat-card-image src="assets/img/doctor_wallpaper.png" alt="Image" />
+    </mat-card>
+  </div>
+  <div class="col mb-4">
+    <mat-card>
+      <img mat-card-image src="assets/img/home_1.png" alt="Image" />
+    </mat-card>
+  </div>
+  <div class="col mb-4">
+    <mat-card>
+      <img mat-card-image src="assets/img/home_2.jpg" alt="Image" />
+    </mat-card>
+  </div> -->
+</div>

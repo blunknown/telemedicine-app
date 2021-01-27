@@ -76,15 +76,24 @@ export class MeetComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.isLoading = true;
       const topic: string = this.form.get('topic').value;
-      this.zoomService.createMeeting(topic).subscribe((res) => {
-        this.idMeet = res.id;
-        this.passwordMeet = res.password;
-        this.isLoading = false;
-        console.log(res);
-        this._snackBar.open('Reunion creada correctamente', 'Ok', {
-          duration: 3000,
-        });
-      });
+      this.zoomService.createMeeting(topic).subscribe(
+        (res) => {
+          this.idMeet = res.id;
+          this.passwordMeet = res.password;
+          this.isLoading = false;
+          console.log(res);
+          this._snackBar.open('Reunion creada correctamente !!!', 'Ok', {
+            duration: 3000,
+          });
+          this.form.reset();
+        },
+        (err) => {
+          this._snackBar.open('Error al crear la reunión !!!', 'Ok', {
+            duration: 3000,
+          });
+          this.form.reset();
+        }
+      );
       // this.authService
       //   .login(credentials)
       //   .pipe(finalize(() => (this.isLoading = false)))
@@ -120,11 +129,13 @@ export class MeetComponent implements OnInit, AfterViewInit {
           } else {
             console.log(data);
           }
-          this.isLoadingMeet = false;
         })
         .catch((error) => {
           console.log(error);
           this.isLoadingMeet = false;
+          this._snackBar.open('Error en el servidor !!!', 'Ok', {
+            duration: 3000,
+          });
         });
     }
   }
@@ -151,25 +162,28 @@ export class MeetComponent implements OnInit, AfterViewInit {
           userEmail: this.userEmail,
           passWord: this.passWord,
           success: (success) => {
-            this._snackBar.open('Ingresando a la reunión...', 'Ok', {
-              duration: 3000,
-            });
+            console.log('xdd');
             document.getElementById('zmmtg-root').style.display = 'block';
-            this.router.navigate(['/zoom']);
-            console.log('ez');
-            console.log(success);
-            this.isLoadingMeet = false;
+            this.router.navigate(['/zoom']).then(() => {
+              this.isLoadingMeet = false;
+            });
           },
           error: (error) => {
             console.log('gg');
             console.log(error);
             this.isLoadingMeet = false;
+            this._snackBar.open('Error al unirse a la reunión !!!', 'Ok', {
+              duration: 3000,
+            });
           },
         });
       },
       error: (error) => {
         console.log(error);
         this.isLoadingMeet = false;
+        this._snackBar.open('Error al iniciar la reunion !!!', 'Ok', {
+          duration: 3000,
+        });
       },
     });
   }
