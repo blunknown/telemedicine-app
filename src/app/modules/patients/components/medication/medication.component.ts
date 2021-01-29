@@ -34,7 +34,12 @@ export class MedicationComponent implements OnInit {
     this.teletryService
       .getMedicationByTeletryId(this.teletry._id)
       .subscribe((medication) => {
-        this.registrado = medication && medication[0];
+        console.log(medication);
+        this.registrado =
+          medication &&
+          medication[0] &&
+          medication[0].medicamentos !== '' &&
+          medication[0].indicaciones !== '';
         if (medication && medication[0]) {
           const med = {
             medicamentos: medication[0].medicamentos,
